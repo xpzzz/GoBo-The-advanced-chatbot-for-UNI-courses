@@ -3,3 +3,4 @@ Group formed. I created the GitHub accounts for the team. Together
 with Tianpeng , Wenxiao , Minjie. I also found and
 discussed with the team all available software tools and libraries that we
 can use for the project. I am going to do the front-end job with Tianpeng.
+We discussed what we are going to do and which feature we are going to add.
