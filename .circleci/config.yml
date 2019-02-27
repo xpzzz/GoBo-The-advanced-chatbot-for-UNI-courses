@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node@10.15.1-alpine
+    steps:
+      - cd czhx-web
+      - yarn
+      - yarn test
+      - yarn start
