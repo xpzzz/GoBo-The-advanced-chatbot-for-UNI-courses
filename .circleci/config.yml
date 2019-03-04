@@ -7,6 +7,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Check package.json
+          command: 'git ls-files | grep package.json'
+      - run:
+          name: Check package.json under given path
+          command: 'git ls-files | grep package.json'
+          path: ~/czhx-web
+      - run:
           name: Init Yarn
           command: 'yarn'
           path: ~/czhx-web
