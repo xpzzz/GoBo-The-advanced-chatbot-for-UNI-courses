@@ -17,7 +17,7 @@ jobs:
           name: Unit Test
           command: 'yarn test'
           path: ~/czhx-web
-       - run:
+      - run:
           name: Check package.json under given path
           command: 'git ls-files | grep package.json'
           path: ~/czhx-web
