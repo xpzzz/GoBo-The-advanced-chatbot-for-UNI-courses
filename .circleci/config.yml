@@ -1,10 +1,19 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/czhx-web
     docker:
       - image: node@10.15.1-alpine
     steps:
-      - cd czhx-web
-      - yarn
-      - yarn test
-      - yarn start
+      - checkout
+      - run:
+        name: init yarn
+        command: 'yarn'
+      - run:
+        name: unit test
+        command: 'yarn test'
+      - run:
+        name: build potentially shippable product
+        command: 'yarn build'
+      - store_artifacts:
+        path: build
