@@ -14,12 +14,12 @@ jobs:
           command: 'yarn install'
           path: ~/czhx-web
       - run:
-          name: Unit Test
-          command: 'yarn test'
-          path: ~/czhx-web
-      - run:
           name: Check package.json under given path
           command: 'git ls-files | grep package.json'
+          path: ~/czhx-web
+      - run:
+          name: Unit Test
+          command: 'yarn test'
           path: ~/czhx-web
       - run:
           name: Build
