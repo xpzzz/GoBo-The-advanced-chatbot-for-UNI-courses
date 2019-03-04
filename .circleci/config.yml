@@ -7,13 +7,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: init yarn
+          name: Init Yarn
           command: 'yarn'
+          path: ~/czhx-web
       - run:
-          name: unit test
+          name: Unit Test
           command: 'yarn test'
+          path: ~/czhx-web
       - run:
-          name: build potentially shippable product
+          name: Build
           command: 'yarn build'
+          path: ~/czhx-web
       - store_artifacts:
           path: build
