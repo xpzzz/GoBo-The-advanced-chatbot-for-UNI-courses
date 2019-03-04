@@ -7,13 +7,13 @@ jobs:
     steps:
       - checkout
       - run:
-        name: init yarn
-        command: 'yarn'
+          name: init yarn
+          command: 'yarn'
       - run:
-        name: unit test
-        command: 'yarn test'
+          name: unit test
+          command: 'yarn test'
       - run:
-        name: build potentially shippable product
-        command: 'yarn build'
+          name: build potentially shippable product
+          command: 'yarn build'
       - store_artifacts:
-        path: build
+          path: build
