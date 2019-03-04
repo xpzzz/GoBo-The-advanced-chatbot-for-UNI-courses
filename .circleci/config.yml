@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check package.json
-          command: 'git ls-files | grep package.json'
+          name: Check File Structure
+          command: 'find ~'
       - run:
           name: Init Yarn
           command: 'yarn install'
