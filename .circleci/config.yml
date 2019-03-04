@@ -7,15 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check File Structure
-          command: 'find ~'
-      - run:
           name: Init Yarn
           command: 'yarn install'
-          path: ~/czhx/czhx-web
-      - run:
-          name: Check package.json under given path
-          command: 'git ls-files | grep package.json'
           path: ~/czhx/czhx-web
       - run:
           name: Unit Test
