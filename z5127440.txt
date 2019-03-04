@@ -4,3 +4,9 @@ with Tianpeng , Wenxiao , Minjie. I also found and
 discussed with the team all available software tools and libraries that we
 can use for the project. I am going to do the front-end job with Tianpeng.
 We discussed what we are going to do and which feature we are going to add.
+
+
+Week2
+Group discussion. My team discussed our proposal. We had a lots of meetings
+ to talk about our project. Finally, we decide which epics we are going to do.
+After that , I read the document of DF.
