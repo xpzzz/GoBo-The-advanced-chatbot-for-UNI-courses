@@ -1,6 +1,10 @@
 version: 2
 jobs:
   build:
+    branches: 
+      only:
+        - master
+        - frontend
     working_directory: ~/czhx
     docker:
       - image: circleci/node:10.15.1
