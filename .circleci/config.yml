@@ -1,10 +1,26 @@
 version: 2
 jobs:
   build:
+    branches: 
+      only:
+        - master
+        - frontend
+    working_directory: ~/czhx
     docker:
-      - image: node@10.15.1-alpine
+      - image: circleci/node:10.15.1
     steps:
-      - cd czhx-web
-      - yarn
-      - yarn test
-      - yarn start
+      - checkout
+      - run:
+          name: Init Yarn
+          command: 'yarn install'
+          path: ~/czhx/czhx-web
+      - run:
+          name: Unit Test
+          command: 'yarn test'
+          path: ~/czhx/czhx-web
+      - run:
+          name: Build
+          command: 'yarn build'
+          path: ~/czhx/czhx-web
+      - store_artifacts:
+          path: build
