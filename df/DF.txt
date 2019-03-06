@@ -1,0 +1,52 @@
+Introduction
+- Dialogflow lets you build conversational interfaces on top of your products
+  and services by providing a powerful natural language understanding (NLU) 
+  engine to process and understand natural language input
+
+
+NLU
+- Interpreting and processing natural language requires a very robust language
+  parser that's capable of understanding the nuances of language.
+  no need of standard request input from user's point of view
+
+
+1. Dialogflow V2 API
+- transport input from ui to DF api
+
+2. The parameter is not a list.
+- each entity as one parameter
+
+3. # used to call "_parent_entity-followup._entity"
+- e.g. #language-followup.language-custom
+
+4. $ used to call custom and system entity made in intents
+- e.g. $language or $sys.language
+
+5. parameter_name |     entity 		  | value
+- i.e.   language |   @sys.language   | $language
+- refered to code |   set up entity   |  used with substitute for context value
+
+6. handlers are set to run when a specific intent is matched.
+- (when specific entity is mentioned
+
+7. intent's components
+- Training phrases: Defines example phrases of what users can say
+- Action and Parameters: annotate your training phrases with entities, or categories
+  of data to be matched (key words).
+- Responses: use Dialogflow's built-in response handler or call fulfillment to process the extracted data 
+  and return a response back to Dialogflow. (leading the conversation to end or next topic)
+
+8. agent workflow (https://dialogflow.com/docs/intro/fulfillment)
+- 
+- match intents(intent classification)
+- extract entity/parameter(useful words) out and call fulfillment (with a JSON payload) as a webhook
+- external RESTful API works (use these entites to call matched function)
+- return appropriate response in form of fulfillment 
+
+9. glossary
+- https://dialogflow.com/docs/intro/glossary
+
+10. 
+
+
+
