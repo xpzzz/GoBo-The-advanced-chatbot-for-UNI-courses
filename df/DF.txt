@@ -46,7 +46,95 @@ NLU
 9. glossary
 - https://dialogflow.com/docs/intro/glossary
 
-10. 
+Agent
+1. prebuilt agents provide basic categorial entities and intents
+
+2. smart talk povides usual conversation response, which can be customised 
+
+3. version public and revert
+
+
+4. ML threshold 
+- decide the condition of fallback intent
+
+5. ML model selection
+- https://dialogflow.com/docs/agents/machine-learning
+
+6. spell correction
+- not suitable for ASR
+- not suitable for specific domain
+- add commonly mismatched phrases to negative examples(fix the mismatched correct input)
+
+7. Knowledge connectors
+- Beta version
+- parsing documents (FAQs or articles)
+- automatically find Q & A
+- KB preference to set the prob of selection from a defined intent or a KB
+- rich response (possible responses)
+- supported content knowledge types
+  - FAQ : text/html text/csv (prefered csv : 1st col - Q; 2nd col - A)
+  - article : text/plain text/html
+
+Intent
+1. Training phrases
+- 20 or more examples for specific intent
+- annotate training phrases with entities(or DF has built-in function)
+- modes
+  - example mode "icon
+  - template mode @icon (deprecated, use examples)
+
+2. Action and parameters
+- List( IS LIST option allows more values input as one matched entity)
+- EXtract parameter values
+  - Original value (return same version with input):$fruit.original
+  - Composite entity (enum entity contains other entities as aliases):
+    $composite_entity.sub_entity_name
+  - From context : #context_name.parameter_name
+
+3. Responses
+As a general rule, to keep the conversation going,providing your users with a prompt that
+guides them towards a specific answer.
+- Static text response
+- Webhook response
+  - intent name, extracted parameter value, and other metadata as a JSON payload
+  - sent by HTTP POST
+
+ 4. Default intents
+ - welcome
+ - fallback (no matched intent)
+
+ 5. Rich messages
+ - multiple response types integrated with other platform
+ - https://dialogflow.com/docs/reference/message-objects#one-click_integration_message_objects
+
+6. Intent priority
+
+Entity
+1. System entities
+- built-in
+
+2. Developer entities
+- defined developer enum entity type ： contains combination of more than 1 entities(characteristics)
+- synonymous unchecked
+- https://dialogflow.com/docs/entities/developer-entities
+
+3. Session entities
+- entity types apply only to a specific conversation
+
+4. Representation
+- JSON format
+  {
+  "value":string,
+  "synonyms": [ string ]
+  }
+- CSV format
+  - Each entry corresponds to a new line.
+  - The reference value and synonyms should be separated by commas.
+  - Each reference value and synonym should be enclosed in double-quotes.
+  - The reference value should be at the beginning of the line.
+  - Include the reference value twice of you want it to be matched by the entity.
+  - e.g. "New York City", "New York City", "NYC", "New York City, USA"
+
 
 
 
