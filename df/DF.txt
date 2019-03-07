@@ -119,7 +119,8 @@ Entity
 - https://dialogflow.com/docs/entities/developer-entities
 
 3. Session entities
-- entity types apply only to a specific conversation
+- entity types apply only to a specific conversation(more key words extended to one entities
+  corresponding user input)
 
 4. Representation
 - JSON format
@@ -134,6 +135,80 @@ Entity
   - The reference value should be at the beginning of the line.
   - Include the reference value twice of you want it to be matched by the entity.
   - e.g. "New York City", "New York City", "NYC", "New York City, USA"
+
+  Context
+  represents the current state of a user's request and allow agent to carry information
+  from one intent to another.
+
+  when you apply contexts to an intent, Dialogflow will only consider that intent for 
+  matching if the context is active.
+
+  - parameter collected via context
+    #context_name.parameter_name
+  - parameter collected from last reply
+    $parameter_name
+  
+ 1. Input contexts
+ - when applied, match the intent only if the user utterance is a close match 
+   and if the context is active.
+
+2. Output contexts
+- When applied, activate a context if it's not already active or to maintain the context 
+  after the intent is matched.
+- multiple output contexts is allowed for matching control.
+- adjust lifespan(default 5 or 20 mins, and reset after another intent matched)
+
+3. use cases
+- Controlling order of intent matching.
+- Creating different outcomes for intents with the same training phrases.
+- e.g. two intents for "show pictures" : one for cats, another for dogs
+ 	   -> make one intent to ask which is loved 
+ 	   -> activative an output context with "like ***"
+ 	   -> "show me picture" intents accept input context of "like ***" so that 
+ 	       ensure expected intent based on ***
+
+4. Intent matching follows rules when it comes to contexts
+- Queries without any contexts can match any intent.
+- Queries with any number of contexts can match any intents that 
+  don't have input contexts.
+- When one or more contexts are active, an intent's input contexts
+  must be a subset (one or more) of those active contexts to be matched.
+  e.g. if contexts "A", "B", and "C" are active, an intent with "A", "B",
+       and "D" input contexts will not be matched,
+       because context "D" is not active.
+
+ 5. follow-up intent
+ - yes/no
+ - custom
+ - only matched after parent intent matched
+
+ 6. active context
+ - they passed by JSON content (when retrieved)
+	{
+	  "queryResult": {
+	    "outputContexts": [
+	      {
+	        "name": "projects/your-agents-project-id/agent/sessions/88d13aa8-2999-4f71-b233-39cbf3a824a0/contexts/<CONTEXT-NAME>",
+	        "lifespanCount": 5,
+	        "parameters": {
+	          "param-name": "param value"
+	        }
+	      }
+	    ],
+	    … // Unrelated information
+	  },
+	  "session": "projects/<PROJECT-ID>/agent/sessions/<SESSION-ID>",
+	  … // Unrelated information
+	}
+
+
+
+
+
+
+API Reference
+- https://cloud.google.com/dialogflow-enterprise/docs/reference/
+
 
 
 
