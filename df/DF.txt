@@ -202,8 +202,52 @@ Entity
 	}
 
 
+Event
+1. definition
+- Events allow you to invoke intents based on something that has happened.
 
+2. Platform events
+- what user indicates invoke specific events such as welcome and stop communication
 
+3. Custom events
+- clicked a button
+- provided authorization
+- timer
+- set event via intent API 
+  - https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2/projects.agent.intents
+
+**Fulfillment**
+- To generate dynamic responses from a database.
+- To place orders based on questions a customer has asked for
+- To implement the rules and some special conditions for particular communication
+
+1. call API via webhook
+- enable webhook
+- POST Json object sent by DF
+- response back the instruction
+- https://dialogflow.com/docs/fulfillment/how-it-works
+
+2. Custom webhook
+- provide HTTPS endpoint
+- slotfilling : declare the parameters(missing value as empty string) 
+
+3. Deploy
+- Actions on Google
+- https://dialogflow.com/docs/agents/deploy
+
+Training and Analytics
+- Build and improve agents using customer interaction logs.
+- Upload logs from an external source.
+- Incorporate logs from a live agent.
+- Get insight into how well your agent is performing.
+
+1. training
+- train via API
+- https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2/projects.agent/train
+
+2. Analytics
+- built-in dashboard on Dialgflow console
+- https://dialogflow.com/docs/training-analytics/analytics
 
 
 API Reference
