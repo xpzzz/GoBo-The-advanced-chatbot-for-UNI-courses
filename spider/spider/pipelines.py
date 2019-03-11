@@ -21,8 +21,12 @@ class HandbookNormalisePipeline(object):
         _tmp = item['intro']
         intro = ''
         for _ in _tmp:
-            intro += f'{_}\n'
+            intro += f'{_}'
+            # 去掉\n 因为是一个整体intent：intro
         intro.replace('\u00a0', ' ').rstrip('\n')
+        intro = '"'+intro+'"'
+        #左右添加""使,不分割csv文件
+        #TODO CSV : 后换行
 
         item['intro'] = intro
         logging.debug(f'Now item is: {intro}')
@@ -36,7 +40,7 @@ class HandbookNormalisePipeline(object):
 class CSVWriterPipeline(object):
 
     def open_spider(self, spider):
-        self.file = open('handbook.csv', 'w')
+        self.file = open('handbook.csv', 'w',encoding='utf-8')
 
     def close_spider(self, spider):
         self.file.close()
