@@ -12,3 +12,11 @@ class SpiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+
+class HandbookItem(scrapy.Item):
+    name = scrapy.Field()
+    code = scrapy.Field()
+    uoc = scrapy.Field()
+    intro = scrapy.Field()
+    outline = scrapy.Field()
