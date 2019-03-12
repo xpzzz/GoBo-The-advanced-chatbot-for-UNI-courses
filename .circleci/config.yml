@@ -37,6 +37,7 @@ jobs:
     docker:
       - image: governmentpaas/cf-cli
     steps:
+      - checkout
       - run:
           name: cf push
           command: |
@@ -49,4 +50,16 @@ workflows:
   build_and_deploy:
     jobs:
       - build
+        filters:
+          branches:
+            only:
+              - master
+              - frontend
       - deploy
+        requires:
+          - build
+        filters:
+          branches:
+            only:
+              - master
+              - frontend
