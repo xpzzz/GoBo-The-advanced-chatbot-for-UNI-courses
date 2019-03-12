@@ -30,8 +30,8 @@ jobs:
           name: Create WorkSpace
           command: |
             mkdir -p ~/czhx/workspace
-            cp ~/czhx/czhx-web/manifest-pws.yml ~/czhx/workspace/build/
             cp -r ~/czhx/czhx-web/build ~/czhx/workspace/build
+            cp ~/czhx/czhx-web/manifest-pws.yml ~/czhx/workspace/build/
             find ~/czhx/workspace
       - persist_to_workspace:
           root: workspace
