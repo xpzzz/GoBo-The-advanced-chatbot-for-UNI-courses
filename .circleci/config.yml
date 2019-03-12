@@ -11,7 +11,9 @@ jobs:
           command: 'echo $CIRCLE_BRANCH'
       - run:
           name: Check File Structure
-          command: find .
+          command: |
+            pwd
+            find .
       - run:
           name: Init Yarn
           command: 'yarn install'
@@ -28,7 +30,7 @@ jobs:
           name: Create WorkSpace
           command: |
             mkdir -p ~/czhx/workspace
-            cp ~/czhx/manifest-pws.yml ~/czhx/workspace/
+            cp ~/czhx/czhx-web/manifest-pws.yml ~/czhx/workspace/
             cp -r ~/czhx/czhx-web/build ~/czhx/workspace/build
             find ~/czhx/workspace
       - persist_to_workspace:
