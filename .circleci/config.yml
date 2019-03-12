@@ -26,8 +26,7 @@ jobs:
           command: 'yarn build'
           path: ~/czhx/czhx-web
       - store_artifacts:
-          path: ~/build
-
+          path: ~/czhx/czhx-web/build
   deploy:
     branches:
       only:
