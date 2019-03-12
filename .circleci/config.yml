@@ -6,7 +6,6 @@ jobs:
       - image: circleci/node:10.15.1
     steps:
       - checkout
-      - run: mkdir -p workspace
       - run:
           name: Check Branch
           command: 'echo $CIRCLE_BRANCH'
@@ -22,10 +21,15 @@ jobs:
           name: Build
           command: 'yarn build'
           path: ~/czhx/czhx-web
+      - run:
+          name: Create WorkSpace
+          command: |
+            mkdir -p /tmp/workspace
+            cp -r ~/czhx/czhx-web/build /tmp/workspace/build
       - persist_to_workspace:
           root: workspace
           paths:
-          - ~/czhx/czhx-web/build
+          - build
 
   deploy:
     working_directory: ~/czhx
@@ -33,7 +37,7 @@ jobs:
       - image: governmentpaas/cf-cli
     steps:
       - attach_workspace:
-          at: ~/czhx/workspace
+          at: /tmp/workspace
       - run:
           name: Check WorkSpace
           command: |
