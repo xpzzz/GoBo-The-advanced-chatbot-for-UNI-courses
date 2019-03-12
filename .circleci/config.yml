@@ -30,7 +30,7 @@ jobs:
           name: Create WorkSpace
           command: |
             mkdir -p ~/czhx/workspace
-            cp ~/czhx/czhx-web/manifest-pws.yml ~/czhx/workspace/
+            cp ~/czhx/czhx-web/manifest-pws.yml ~/czhx/workspace/build
             cp -r ~/czhx/czhx-web/build ~/czhx/workspace/build
             find ~/czhx/workspace
       - persist_to_workspace:
@@ -54,6 +54,7 @@ jobs:
           name: Push to Pivotal
           command: |
             cd workspace
+            mv build/manifest.yml .
             cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
             cf push -f manifest-pws.yml
             cf logout
