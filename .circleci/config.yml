@@ -6,6 +6,7 @@ jobs:
       - image: circleci/node:10.15.1
     steps:
       - checkout
+      - run: mkdir -p workspace
       - run:
           name: Check Branch
           command: 'echo $CIRCLE_BRANCH'
@@ -21,23 +22,20 @@ jobs:
           name: Build
           command: 'yarn build'
           path: ~/czhx/czhx-web
-      - store_artifacts:
-          path: ~/czhx/czhx-web/build
+      - persist_to_workspace:
+          root: workspace
+          paths:
+          - ~/czhx/czhx-web/build
 
   deploy:
     working_directory: ~/czhx
     docker:
       - image: governmentpaas/cf-cli
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/czhx/workspace
       - run:
-          name: Get Artifacts
-          command: |
-            export CIRCLE_TOKEN='?circle-token='$MY_CI
-            curl https://circleci.com/api/v1.1/project/github/$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME/$CIRCLE_PREVIOUS_BUILD_NUM/artifacts$CIRCLE_TOKEN | grep -o 'https://[^"]*' > artifacts.txt
-            <artifacts.txt xargs -P4 -I % wget %?circle-token=$MY_CI
-      - run:
-          name: Check Artifacts
+          name: Check WorkSpace
           command: |
             pwd
             find .
