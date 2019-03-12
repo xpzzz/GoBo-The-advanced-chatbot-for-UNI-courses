@@ -33,9 +33,9 @@ jobs:
       only:
         - master
         - frontend
-      working_directory: ~/czhx
-      docker:
-        - image: governmentpaas/cf-cli
+    working_directory: ~/czhx
+    docker:
+      - image: governmentpaas/cf-cli
     steps:
       - run:
           name: cf push
