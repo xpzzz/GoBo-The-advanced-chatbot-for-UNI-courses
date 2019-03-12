@@ -30,6 +30,12 @@ jobs:
       - image: governmentpaas/cf-cli
     steps:
       - run:
+          name: Get Artifacts
+          command: |
+            export CIRCLE_TOKEN='?circle-token='$MY_CI
+            curl https://circleci.com/api/v1.1/project/github/$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME/$CIRCLE_PREVIOUS_BUILD_NUM/artifacts$CIRCLE_TOKEN | grep -o 'https://[^"]*' > artifacts.txt
+            <artifacts.txt xargs -P4 -I % wget %?circle-token=$MY_CI
+      - run:
           name: Check Artifacts
           command: |
             pwd
