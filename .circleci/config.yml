@@ -24,8 +24,8 @@ jobs:
       - run:
           name: Create WorkSpace
           command: |
-            mkdir -p /tmp/workspace
-            cp -r ~/czhx/czhx-web/build /tmp/workspace/build
+            mkdir -p ~/workspace
+            cp -r ~/czhx/czhx-web/build ~/workspace/build
       - persist_to_workspace:
           root: workspace
           paths:
@@ -37,7 +37,7 @@ jobs:
       - image: governmentpaas/cf-cli
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: ~/workspace
       - run:
           name: Check WorkSpace
           command: |
