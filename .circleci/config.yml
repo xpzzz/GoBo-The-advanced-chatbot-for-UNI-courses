@@ -29,6 +29,7 @@ jobs:
     docker:
       - image: governmentpaas/cf-cli
     steps:
+      - checkout
       - run:
           name: Get Artifacts
           command: |
