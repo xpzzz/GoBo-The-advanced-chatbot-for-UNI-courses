@@ -31,7 +31,9 @@ jobs:
     steps:
       - run:
           name: Check Artifacts
-          command: ls
+          command: |
+            pwd
+            find .
       - run:
           name: Push to Pivotal
           command: |
