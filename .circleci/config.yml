@@ -27,6 +27,7 @@ jobs:
           path: ~/czhx/czhx-web
       - store_artifacts:
           path: ~/czhx/czhx-web/build
+
   deploy:
     branches:
       only:
@@ -42,3 +43,10 @@ jobs:
             cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
             cf push -f manifest-pws.yml
             cf logout
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy
