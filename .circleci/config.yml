@@ -46,6 +46,7 @@ jobs:
       - run:
           name: Push to Pivotal
           command: |
+            cd workspace
             cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
             cf push -f manifest-pws.yml
             cf logout
