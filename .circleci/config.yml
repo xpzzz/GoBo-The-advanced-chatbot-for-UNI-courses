@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    branches: 
+    branches:
       only:
         - master
         - frontend
@@ -10,6 +10,9 @@ jobs:
       - image: circleci/node:10.15.1
     steps:
       - checkout
+      - run:
+          name: Check Branch
+          command: 'echo $CIRCLE_BRANCH'
       - run:
           name: Init Yarn
           command: 'yarn install'
@@ -23,4 +26,20 @@ jobs:
           command: 'yarn build'
           path: ~/czhx/czhx-web
       - store_artifacts:
-          path: build
+          path: ~/build
+
+  deploy:
+    branches:
+      only:
+        - master
+        - frontend
+      working_directory: ~/czhx
+      docker:
+        - image: governmentpaas/cf-cli
+    steps:
+      - run:
+          name: cf push
+          command: |
+            cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
+            cf push -f manifest-pws.yml
+            cf logout
