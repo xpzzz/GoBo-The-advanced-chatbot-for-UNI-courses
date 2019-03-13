@@ -1,0 +1,37 @@
+import React, { Component } from 'react';
+import { Layout,Avatar,Button } from 'antd';
+import { Row, Col } from 'antd';
+
+const { Header } = Layout;
+
+class Title extends Component{
+    render() {
+        return(
+            <div >
+                <Header style={styles}>
+                    <Row >
+                        <Col span={2} pull={2}>
+                            <Avatar size={48} src='http://img.mp.itc.cn/upload/20170621/e9a96f4bd1f94c89b98b7a0d7a848b3f_th.jpg'  />
+                        </Col>
+                        <Col span={4} push={2}>
+                            <a>GoBo</a>
+                        </Col>
+                        <Col span={18} push={10}>
+                            <Button shape="circle" icon="setting" />
+                        </Col>
+
+                    </Row>
+                </Header>
+            </div>
+        )
+    }
+}
+
+const styles={
+    height:'64px',
+    fontSize:'28px',
+
+};
+
+
+export default Title;

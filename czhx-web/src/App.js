@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import WebDemo from './service/WebDemo';
-import { Button } from 'antd';
+import ChatBot from './chatbot/chatbot';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <WebDemo/>
-        <Button type="primary" >TEST</Button>
+        <ChatBot/>
       </div>
     );
   }
