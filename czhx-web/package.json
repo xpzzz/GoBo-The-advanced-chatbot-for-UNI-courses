@@ -3,13 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "dialogflow": "^0.8.0",
-=======
     "antd": "^3.15.0",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.12",
->>>>>>> 2d34ab337a16267ca3a5faa935d98466f41b1960
     "react": "^16.8.2",
     "react-app-rewired": "^2.1.1",
     "react-dom": "^16.8.2",
