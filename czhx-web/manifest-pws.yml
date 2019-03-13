@@ -1,0 +1,7 @@
+---
+applications:
+  - name: gobo
+    path: ./build
+    instances: 2
+    memory: 64M
+

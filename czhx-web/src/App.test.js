@@ -12,6 +12,6 @@ it('renders without crashing', () => {
 describe('enzyme setup', () => {
   it('should run enzyme properly', () => {
     let wrapper = shallow(<App/>);
-    expect(wrapper.find('a')).toExist();
+    expect(wrapper.find('div')).toExist();
   });
 });
