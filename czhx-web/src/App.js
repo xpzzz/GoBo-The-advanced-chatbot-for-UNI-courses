@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <WebDemo/>
-        <Button type="primary" >TEST</Button>
+        <Button type="primary">TEST</Button>
       </div>
     );
   }
