@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import {Input} from 'antd';
+import {  Col,  Row,Button} from 'antd';
 const {   Footer } = Layout;
 
 
@@ -7,7 +9,14 @@ class InputForm extends Component{
     render() {
         return(
                 <Footer style={styles}>
-                    Ant Design ©2018 Created by Ant UED
+                    <Row>
+                        <Col span={20} >
+                    <Input placeholder="Basic usage" />
+                        </Col>
+                        <Col span={4} push={1}>
+                            <Button type="primary">Send</Button>
+                        </Col>
+                    </Row>
                 </Footer>
         )
     }
