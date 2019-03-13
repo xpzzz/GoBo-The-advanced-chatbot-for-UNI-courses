@@ -1,0 +1,259 @@
+Introduction
+- Dialogflow lets you build conversational interfaces on top of your products
+  and services by providing a powerful natural language understanding (NLU) 
+  engine to process and understand natural language input
+
+
+NLU
+- Interpreting and processing natural language requires a very robust language
+  parser that's capable of understanding the nuances of language.
+  no need of standard request input from user's point of view
+
+
+1. Dialogflow V2 API
+- transport input from ui to DF api
+
+2. The parameter is not a list.
+- each entity as one parameter
+
+3. # used to call "_parent_entity-followup._entity"
+- e.g. #language-followup.language-custom
+
+4. $ used to call custom and system entity made in intents
+- e.g. $language or $sys.language
+
+5. parameter_name |     entity 		  | value
+- i.e.   language |   @sys.language   | $language
+- refered to code |   set up entity   |  used with substitute for context value
+
+6. handlers are set to run when a specific intent is matched.
+- (when specific entity is mentioned
+
+7. intent's components
+- Training phrases: Defines example phrases of what users can say
+- Action and Parameters: annotate your training phrases with entities, or categories
+  of data to be matched (key words).
+- Responses: use Dialogflow's built-in response handler or call fulfillment to process the extracted data 
+  and return a response back to Dialogflow. (leading the conversation to end or next topic)
+
+8. agent workflow (https://dialogflow.com/docs/intro/fulfillment)
+- 
+- match intents(intent classification)
+- extract entity/parameter(useful words) out and call fulfillment (with a JSON payload) as a webhook
+- external RESTful API works (use these entites to call matched function)
+- return appropriate response in form of fulfillment 
+
+9. glossary
+- https://dialogflow.com/docs/intro/glossary
+
+Agent
+1. prebuilt agents provide basic categorial entities and intents
+
+2. smart talk povides usual conversation response, which can be customised 
+
+3. version public and revert
+
+
+4. ML threshold 
+- decide the condition of fallback intent
+
+5. ML model selection
+- https://dialogflow.com/docs/agents/machine-learning
+
+6. spell correction
+- not suitable for ASR
+- not suitable for specific domain
+- add commonly mismatched phrases to negative examples(fix the mismatched correct input)
+
+7. Knowledge connectors
+- Beta version
+- parsing documents (FAQs or articles)
+- automatically find Q & A
+- KB preference to set the prob of selection from a defined intent or a KB
+- rich response (possible responses)
+- supported content knowledge types
+  - FAQ : text/html text/csv (prefered csv : 1st col - Q; 2nd col - A)
+  - article : text/plain text/html
+
+Intent
+1. Training phrases
+- 20 or more examples for specific intent
+- annotate training phrases with entities(or DF has built-in function)
+- modes
+  - example mode "icon
+  - template mode @icon (deprecated, use examples)
+
+2. Action and parameters
+- List( IS LIST option allows more values input as one matched entity)
+- EXtract parameter values
+  - Original value (return same version with input):$fruit.original
+  - Composite entity (enum entity contains other entities as aliases):
+    $composite_entity.sub_entity_name
+  - From context : #context_name.parameter_name
+
+3. Responses
+As a general rule, to keep the conversation going,providing your users with a prompt that
+guides them towards a specific answer.
+- Static text response
+- Webhook response
+  - intent name, extracted parameter value, and other metadata as a JSON payload
+  - sent by HTTP POST
+
+ 4. Default intents
+ - welcome
+ - fallback (no matched intent)
+
+ 5. Rich messages
+ - multiple response types integrated with other platform
+ - https://dialogflow.com/docs/reference/message-objects#one-click_integration_message_objects
+
+6. Intent priority
+
+Entity
+1. System entities
+- built-in
+
+2. Developer entities
+- defined developer enum entity type ： contains combination of more than 1 entities(characteristics)
+- synonymous unchecked
+- https://dialogflow.com/docs/entities/developer-entities
+
+3. Session entities
+- entity types apply only to a specific conversation(more key words extended to one entities
+  corresponding user input)
+
+4. Representation
+- JSON format
+  {
+  "value":string,
+  "synonyms": [ string ]
+  }
+- CSV format
+  - Each entry corresponds to a new line.
+  - The reference value and synonyms should be separated by commas.
+  - Each reference value and synonym should be enclosed in double-quotes.
+  - The reference value should be at the beginning of the line.
+  - Include the reference value twice of you want it to be matched by the entity.
+  - e.g. "New York City", "New York City", "NYC", "New York City, USA"
+
+  Context
+  represents the current state of a user's request and allow agent to carry information
+  from one intent to another.
+
+  when you apply contexts to an intent, Dialogflow will only consider that intent for 
+  matching if the context is active.
+
+  - parameter collected via context
+    #context_name.parameter_name
+  - parameter collected from last reply
+    $parameter_name
+  
+ 1. Input contexts
+ - when applied, match the intent only if the user utterance is a close match 
+   and if the context is active.
+
+2. Output contexts
+- When applied, activate a context if it's not already active or to maintain the context 
+  after the intent is matched.
+- multiple output contexts is allowed for matching control.
+- adjust lifespan(default 5 or 20 mins, and reset after another intent matched)
+
+3. use cases
+- Controlling order of intent matching.
+- Creating different outcomes for intents with the same training phrases.
+- e.g. two intents for "show pictures" : one for cats, another for dogs
+ 	   -> make one intent to ask which is loved 
+ 	   -> activative an output context with "like ***"
+ 	   -> "show me picture" intents accept input context of "like ***" so that 
+ 	       ensure expected intent based on ***
+
+4. Intent matching follows rules when it comes to contexts
+- Queries without any contexts can match any intent.
+- Queries with any number of contexts can match any intents that 
+  don't have input contexts.
+- When one or more contexts are active, an intent's input contexts
+  must be a subset (one or more) of those active contexts to be matched.
+  e.g. if contexts "A", "B", and "C" are active, an intent with "A", "B",
+       and "D" input contexts will not be matched,
+       because context "D" is not active.
+
+ 5. follow-up intent
+ - yes/no
+ - custom
+ - only matched after parent intent matched
+
+ 6. active context
+ - they passed by JSON content (when retrieved)
+	{
+	  "queryResult": {
+	    "outputContexts": [
+	      {
+	        "name": "projects/your-agents-project-id/agent/sessions/88d13aa8-2999-4f71-b233-39cbf3a824a0/contexts/<CONTEXT-NAME>",
+	        "lifespanCount": 5,
+	        "parameters": {
+	          "param-name": "param value"
+	        }
+	      }
+	    ],
+	    … // Unrelated information
+	  },
+	  "session": "projects/<PROJECT-ID>/agent/sessions/<SESSION-ID>",
+	  … // Unrelated information
+	}
+
+
+Event
+1. definition
+- Events allow you to invoke intents based on something that has happened.
+
+2. Platform events
+- what user indicates invoke specific events such as welcome and stop communication
+
+3. Custom events
+- clicked a button
+- provided authorization
+- timer
+- set event via intent API 
+  - https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2/projects.agent.intents
+
+**Fulfillment**
+- To generate dynamic responses from a database.
+- To place orders based on questions a customer has asked for
+- To implement the rules and some special conditions for particular communication
+
+1. call API via webhook
+- enable webhook
+- POST Json object sent by DF
+- response back the instruction
+- https://dialogflow.com/docs/fulfillment/how-it-works
+
+2. Custom webhook
+- provide HTTPS endpoint
+- slotfilling : declare the parameters(missing value as empty string) 
+
+3. Deploy
+- Actions on Google
+- https://dialogflow.com/docs/agents/deploy
+
+Training and Analytics
+- Build and improve agents using customer interaction logs.
+- Upload logs from an external source.
+- Incorporate logs from a live agent.
+- Get insight into how well your agent is performing.
+
+1. training
+- train via API
+- https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2/projects.agent/train
+
+2. Analytics
+- built-in dashboard on Dialgflow console
+- https://dialogflow.com/docs/training-analytics/analytics
+
+
+API Reference
+- https://cloud.google.com/dialogflow-enterprise/docs/reference/
+
+
+
+
+
