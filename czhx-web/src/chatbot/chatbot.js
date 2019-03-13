@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Title from './components/title';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import {Layout} from 'antd';
 import MessageList from './components/messageList';
-import InputForm from  './components/inputForm';
-
-const {  Content, Footer } = Layout;
-
+import InputForm from './components/inputForm';
 class ChatBot extends Component {
     render() {
         return (
@@ -25,9 +22,9 @@ class ChatBot extends Component {
 }
 
 
-const styles={
-    width:'320px',
-    height:'480px',
+const styles = {
+    width: '320px',
+    height: '480px',
 
 };
 export default ChatBot;

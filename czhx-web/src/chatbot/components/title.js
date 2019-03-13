@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { Layout,Avatar,Button } from 'antd';
-import { Row, Col } from 'antd';
+import React, {Component} from 'react';
+import {Avatar, Button, Col, Layout, Row} from 'antd';
 
-const { Header } = Layout;
+const {Header} = Layout;
 
-class Title extends Component{
+class Title extends Component {
     render() {
-        return(
-            <div >
+        return (
+            <div>
                 <Header style={styles}>
-                    <Row >
+                    <Row>
                         <Col span={2} pull={2}>
-                            <Avatar size={48} src='http://img.mp.itc.cn/upload/20170621/e9a96f4bd1f94c89b98b7a0d7a848b3f_th.jpg'  />
+                            <Avatar size={48}
+                                    src='http://img.mp.itc.cn/upload/20170621/e9a96f4bd1f94c89b98b7a0d7a848b3f_th.jpg'/>
                         </Col>
                         <Col span={4} push={2}>
-                            <a>GoBo</a>
+                            <h1 style={{color: '#0099AA'}}>GoBo</h1>
                         </Col>
                         <Col span={18} push={10}>
-                            <Button shape="circle" icon="setting" />
+                            <Button shape="circle" icon="setting"/>
                         </Col>
 
                     </Row>
@@ -27,9 +27,9 @@ class Title extends Component{
     }
 }
 
-const styles={
-    height:'64px',
-    fontSize:'28px',
+const styles = {
+    height: '64px',
+    fontSize: '28px',
 
 };
 
