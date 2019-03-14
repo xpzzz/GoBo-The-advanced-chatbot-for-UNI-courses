@@ -23,6 +23,14 @@ class InputForm extends Component{
 }
 const styles={
     height:'64px',
+    borderStyle:'solid',
+    borderWidth:'2px',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius:'0px 0px 10px 10px',
+
+
 };
 
 export default InputForm;

@@ -6,16 +6,13 @@ import InputForm from './components/inputForm';
 class ChatBot extends Component {
     render() {
         return (
-            <div>
-                <div>
+
                     <Layout className="layout" style={styles}>
                         <Title/>
                         <MessageList/>
                         <InputForm/>
 
                     </Layout>
-                </div>
-            </div>
 
         );
     }
@@ -25,6 +22,7 @@ class ChatBot extends Component {
 const styles = {
     width: '320px',
     height: '480px',
+
 
 };
 export default ChatBot;

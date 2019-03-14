@@ -6,7 +6,7 @@ const {Header} = Layout;
 class Title extends Component {
     render() {
         return (
-            <div>
+
                 <Header style={styles}>
                     <Row>
                         <Col span={2} pull={2}>
@@ -22,7 +22,6 @@ class Title extends Component {
 
                     </Row>
                 </Header>
-            </div>
         )
     }
 }
@@ -30,6 +29,7 @@ class Title extends Component {
 const styles = {
     height: '64px',
     fontSize: '28px',
+    borderRadius:'10px 10px 0px 0px',
 
 };
 
