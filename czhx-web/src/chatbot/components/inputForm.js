@@ -14,7 +14,7 @@ class InputForm extends Component{
                     <Input placeholder="Basic usage" />
                         </Col>
                         <Col span={4} push={1}>
-                            <Button type="primary">Send</Button>
+                            <Button type="primary" style={{backgroundColor:'#a3cbfb',}}>Send</Button>
                         </Col>
                     </Row>
                 </Footer>
@@ -29,6 +29,7 @@ const styles={
     justifyContent:'center',
     alignItems:'center',
     borderRadius:'0px 0px 10px 10px',
+    backgroundColor:'#f4eaf5',
 
 
 };
