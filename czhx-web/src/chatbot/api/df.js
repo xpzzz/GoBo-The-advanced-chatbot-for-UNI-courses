@@ -120,9 +120,16 @@ class DFChatbot extends Component {
                     that.setState({showBot: false})
                 }, 2000);
             }
-
         }
     };
+
+    resolveAfterXSeconds(x) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(x);
+            }, x * 1000)
+        })
+    }
 
 
 }
