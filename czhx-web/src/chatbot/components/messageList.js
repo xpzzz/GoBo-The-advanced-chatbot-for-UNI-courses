@@ -17,9 +17,9 @@ class MessageList extends Component {
 
 const styles = {
     height: '352px',
-    weight:'300px',
-    backgroundColor:'#f4eaf5',
-    padding:'10px'
+    weight: '300px',
+    backgroundColor: '#f4eaf5',
+    padding: '10px'
 };
 
 export default MessageList;

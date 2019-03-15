@@ -8,11 +8,11 @@ class ChatBot extends Component {
     render() {
         return (
 
-                    <Layout className="layout" style={styles}>
-                        <Title/>
-                        <MessageList/>
-                        <InputForm/>
-                    </Layout>
+            <Layout className="layout" style={styles}>
+                <Title/>
+                <MessageList/>
+                <InputForm/>
+            </Layout>
 
         );
     }
