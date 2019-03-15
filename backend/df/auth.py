@@ -28,10 +28,10 @@ def get_token():
     service_account_info = json.load(open(KEY_PATH))
     audience = 'https://dialogflow.googleapis.com/google.cloud.dialogflow.v2beta1.Sessions'
 
-    credentials = service_account.Credentials.from_service_account_info(
-        service_account_info,
-        scopes=SCOPES,
-    )
+    # credentials = service_account.Credentials.from_service_account_info(
+    #     service_account_info,
+    #     scopes=SCOPES,
+    # )
     # print(credentials.__dict__)
     _kid = service_account_info['private_key_id']
     _pk = service_account_info['private_key']
