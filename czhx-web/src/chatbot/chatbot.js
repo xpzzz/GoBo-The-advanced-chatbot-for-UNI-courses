@@ -3,6 +3,7 @@ import Title from './components/title';
 import {Layout} from 'antd';
 import MessageList from './components/messageList';
 import InputForm from './components/inputForm';
+
 class ChatBot extends Component {
     render() {
         return (
@@ -12,7 +13,6 @@ class ChatBot extends Component {
                         <Title/>
                         <MessageList/>
                         <InputForm/>
-
                     </Layout>
                 </div>
             </div>
