@@ -3,7 +3,7 @@ import Title from './components/title';
 import {Layout} from 'antd';
 import MessageList from './components/messageList';
 import InputForm from './components/inputForm';
-import axios from "axios/index";
+import axios from "axios";
 import Cookies from 'universal-cookie';
 import {v4 as uuid} from 'uuid';
 
@@ -18,22 +18,24 @@ class ChatBot extends Component {
         this.state = {
             messages: [
                 {
-                speaks: 'bot',
-                msg: {
-                    text: {
-                        text: "Hello~ I'm GoBo"
+                    speaks: 'bot',
+                    msg: {
+                        text: {
+                            text: "Hello~ I'm GoBo"
+                        }
                     }
-                }} ,
+                },
                 {
                     speaks: 'user',
                     msg: {
                         text: {
                             text: "Hello~ I'm Eric!"
                         }
-                    }} ] ,
+                    }
+                }],
             showWelcomeSent: false,
-            // clientToken:null,
-            clientToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjI2NjYxNGY3NzJlMGRhNTAzYmUzMmIxNjJkNGJiNjg1NjZjZWY1ZGQifQ.eyJpc3MiOiJkaWFsb2dmbG93LW5uaGppZUBnb2JvLTk3ZTVlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZGlhbG9nZmxvdy1ubmhqaWVAZ29iby05N2U1ZS5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsImF1ZCI6Imh0dHBzOi8vZGlhbG9nZmxvdy5nb29nbGVhcGlzLmNvbS9nb29nbGUuY2xvdWQuZGlhbG9nZmxvdy52MmJldGExLlNlc3Npb25zIiwiZXhwIjoxNTUyNzUwODkyLjYwMDg5LCJpYXQiOjE1NTI3NDcyOTIuNjAwODl9.dEz200K7SD80A6vUq8HrHpBOlN783W0SKRrtKPYSjtiJCGyRME2ScurGyGZHIVtgKX3In_VDUTy6_skTcnTUki3qAN99ro_D0EQvCYi6vX647ZSb7HDqfSoeqpXtX5-tXEYUJahI0YmWwk-sxUTleG49xUSGQuz6U9HXxU8H69RjdhlrZpktINfccZxI48dOYZMQCCwiaZuEKV4PdwvwAzKW6GPG2MkJvnm4ZZjlkv8ADM3qPtc-KVvSjtKt6SVktGqeCR7NTfKqf9N-ZUaiKHs0gFEp9Z5zyw9o42UGz_NB8a4OWGgKN-3mVYo87xVAYUb4ue-lXDpCNU6TcGNumQ",
+            clientToken: false,
+            // clientToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjI2NjYxNGY3NzJlMGRhNTAzYmUzMmIxNjJkNGJiNjg1NjZjZWY1ZGQifQ.eyJpc3MiOiJkaWFsb2dmbG93LW5uaGppZUBnb2JvLTk3ZTVlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZGlhbG9nZmxvdy1ubmhqaWVAZ29iby05N2U1ZS5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsImF1ZCI6Imh0dHBzOi8vZGlhbG9nZmxvdy5nb29nbGVhcGlzLmNvbS9nb29nbGUuY2xvdWQuZGlhbG9nZmxvdy52MmJldGExLlNlc3Npb25zIiwiZXhwIjoxNTUyNzUwODkyLjYwMDg5LCJpYXQiOjE1NTI3NDcyOTIuNjAwODl9.dEz200K7SD80A6vUq8HrHpBOlN783W0SKRrtKPYSjtiJCGyRME2ScurGyGZHIVtgKX3In_VDUTy6_skTcnTUki3qAN99ro_D0EQvCYi6vX647ZSb7HDqfSoeqpXtX5-tXEYUJahI0YmWwk-sxUTleG49xUSGQuz6U9HXxU8H69RjdhlrZpktINfccZxI48dOYZMQCCwiaZuEKV4PdwvwAzKW6GPG2MkJvnm4ZZjlkv8ADM3qPtc-KVvSjtKt6SVktGqeCR7NTfKqf9N-ZUaiKHs0gFEp9Z5zyw9o42UGz_NB8a4OWGgKN-3mVYo87xVAYUb4ue-lXDpCNU6TcGNumQ",
             regenerateToken: 0,
         };
         if (cookies.get('userID') === undefined) {
@@ -69,19 +71,29 @@ class ChatBot extends Component {
 
 
     async dfClientCall(request) {
-        let says = await  {
+        let says = await {
             speaks: 'bot',
             msg: "One more time!"
         };
 
+        console.log('ClientCall!');
+
         try {
             if (this.state.clientToken === false) {
                 // TODO: backend implementation needed!
-                // const res = await axios.get('https://gobo-api.cfapps.io/v1/auth');
+                console.log('Calling backend to get token');
+                const res = await axios.get('https://gobo-api.cfapps.io/v1/auth',
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        }
+                    });
                 // axios.get('https://gobo-api.cfapps.io/v1/auth')
                 //     .then(function (response) {
                 //         alert(response.token);
                 //     });
+                console.log('Getting auth from backend: ' + res);
+                console.log(res);
 
                 this.setState({clientToken: res.data.token});
             }
@@ -133,8 +145,6 @@ class ChatBot extends Component {
             }
         }
     };
-
-
 
 
     _handleInputKeyPress(e) {
