@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Layout} from 'antd';
+import { List, Avatar } from 'antd';
+import MessageItem from './messageItem';
 
 const {Content} = Layout;
 
@@ -8,11 +10,18 @@ class MessageList extends Component {
     render() {
         return (
             <Content style={styles}>
-                <p>hello</p>
+                <List
+                    itemLayout="horizontal"
+                    dataSource={this.props.data}
+                    renderItem={item => (
+                        <MessageItem data={item}/>
+                    )}
+                />
             </Content>
         )
     }
 }
+
 
 
 const styles = {

@@ -5,15 +5,29 @@ const {Footer} = Layout;
 
 
 class InputForm extends Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
+        const onChange = (e) => {
+            console.log(e);
+        };
         return (
             <Footer style={styles}>
                 <Row>
                     <Col span={20}>
-                        <Input placeholder="Basic usage"/>
+                        <Input onPressEnter={this.props.onKeyPress}
+                            placeholder="type a message:"
+                               allowClear
+                               onChange={onChange}
+                        />
                     </Col>
                     <Col span={4} push={1}>
-                        <Button type="primary" style={{backgroundColor: '#a3cbfb',}}>Send</Button>
+                        <Button type="primary"
+                                onClick={this.props.onKeyPress}
+                                style={{backgroundColor: '#a3cbfb',}
+                                }>Send</Button>
                     </Col>
                 </Row>
             </Footer>
