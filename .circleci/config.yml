@@ -64,6 +64,7 @@ jobs:
     docker:
       - image: governmentpaas/cf-cli
     steps:
+      - checkout
       - run:
           name: Check File Structure
           command: |

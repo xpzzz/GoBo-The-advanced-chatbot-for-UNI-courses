@@ -1,7 +1,0 @@
-Week 1
-
-Group formed. I initialised the Github repo and created several branches for my team (frontend, design, df-playground). We discussed with the tech-stack that we are going to use and the good practices to follow (TDD, feature-branch). Together with Yifan, we initialised the React app for our frontend. We are waiting for the maintainer role to be added to our team so that we can add CI integrations into our repo for further development.
-
-Week 2
-
-We re-designed our tech architecture and decided the key points for our proposal. I drew the architecture diagram and wrote the tech paragraph in the proposal. In addition we started to learn about DialogFlow. I setup the CircleCI pipeline for the project.
