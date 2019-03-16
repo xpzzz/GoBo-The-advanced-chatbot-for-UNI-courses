@@ -30,37 +30,6 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
         print('Fulfillment text: {}\n'.format(
             response.query_result.fulfillment_text))
 
-def  get_document(project_id, knowledge_base_id, document_id):
-    client = dialogflow.DocumentsClient()
-
-    name = client.document_path(project_id, knowledge_base_id, document_id)
-    response = client.get_document(name)
-    print("Document :{}".format(response))
-
-
-def print_documents(pj_id, kb_id):
-    client = dialogflow.DocumentsClient()
-    parent = client.knowledge_base_path(pj_id, kb_id)
-    # Iterate over all results
-    n = 1
-    for element in client.list_documents(parent):
-        print("document " + str(n) + ":")
-        print("reference_id: " + element.name.split("/")[5])
-        print("display_name: " + element.display_name)
-        print("-"*20)
-        n+=1
-
-def print_knowledge_bases(pj_id, metadata=None):
-    client = dialogflow.KnowledgeBasesClient()
-    parent = client.project_path(pj_id)
-    # Iterate over all results
-    n = 1
-    for element in client.list_knowledge_bases(parent):
-        print("knowledge_base " + str(n) + ":")
-        print("reference_id: " + element.name.split("/")[3])
-        print("display_name: " + element.display_name)
-        print("-" * 20)
-        n+=1
 
 
 
