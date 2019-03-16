@@ -6,6 +6,8 @@ from flask import Flask
 
 
 # def create_app():
+from flask_cors import CORS
+
 from .v1 import bp
 # import v1
 
@@ -15,6 +17,8 @@ app.register_blueprint(
     # v1.bp
     url_prefix='/v1')
     # return app
+cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 if __name__ == '__main__':
