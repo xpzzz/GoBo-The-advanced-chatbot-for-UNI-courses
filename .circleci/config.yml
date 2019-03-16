@@ -77,3 +77,7 @@ workflows:
               only:
                 - master
                 - frontend
+=======
+      - store_artifacts:
+          path: build
+>>>>>>> df-playground

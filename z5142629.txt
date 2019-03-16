@@ -9,3 +9,10 @@ Group formed. I linked GitHub accounts with zID in classroom and joined into the
 
 ###week2
 I got involved in the discussion of epics of the project. I figured out the workflow of dialogflow and assisted our master with the proprosal. I learned how to use dialogflow to create an chatbot agent and use python to call its api. I will continue to learn how to apply it to our project.
+
+
+###week3
+The object course has been decided. I assisted scrum master with proposal and gave own advice to revise it. I created our initial agent on dialogflow and took the test to construst its response rule.I continue reading the documents and api instruction of Dialogflow and tried to communicate with Dialogflow by python.
+
+
+###week4
