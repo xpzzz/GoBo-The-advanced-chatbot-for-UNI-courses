@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Layout} from 'antd';
-import { List, Avatar } from 'antd';
+import {
+    List,
+    // Avatar
+} from 'antd';
 import MessageItem from './messageItem';
 
 const {Content} = Layout;

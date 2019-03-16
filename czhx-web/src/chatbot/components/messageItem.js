@@ -3,9 +3,9 @@ import {Col, Row} from 'antd';
 
 
 class MessageItem extends Component {
-    constructor(props) {
-        super(props)
-    }
+    // constructor(props) {
+    //     super(props)
+    // }
 
     render() {
         return (

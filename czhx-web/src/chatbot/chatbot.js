@@ -71,17 +71,17 @@ class ChatBot extends Component {
 
 
     async dfClientCall(request) {
-        let says = await {
-            speaks: 'bot',
-            msg: "One more time!"
-        };
+        // let says = await {
+        //     speaks: 'bot',
+        //     msg: "One more time!"
+        // };
 
         console.log('ClientCall!');
 
         try {
             if (this.state.clientToken === false) {
                 console.log('Calling backend to get token');
-                const res = await axios.get('https://gobo-api.cfapps.io/v1/auth',
+                await axios.get('https://gobo-api.cfapps.io/v1/auth',
                 // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
                 ).then((response) => {
                     console.log(response);
