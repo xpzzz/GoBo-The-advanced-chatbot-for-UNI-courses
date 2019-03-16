@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function
 
+import logging
+
 from flask import request, g
 
 from . import Resource
@@ -15,6 +17,7 @@ import jwt
 class Auth(Resource):
 
     def get(self):
+        print('[ENV] Google Service Account: ' + os.getenv('GOOGLE_SERVICE_ACCOUNT'))
         token = self.get_token()
         return {'token': token}, 200, None
 

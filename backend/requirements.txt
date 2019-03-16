@@ -10,10 +10,14 @@ click==6.7
 constantly==15.1.0
 cryptography==2.6.1
 cssselect==1.0.3
+dialogflow==0.5.2
 dpath==1.4.2
 Flask==1.0.2
 Flask-RESTful==0.3.7
+google-api-core==1.8.1
 google-auth==1.6.3
+googleapis-common-protos==1.5.8
+grpcio==1.19.0
 gunicorn==19.9.0
 hyperlink==18.0.0
 idna==2.8
@@ -25,6 +29,7 @@ jsonschema==2.6.0
 lxml==4.3.2
 MarkupSafe==1.1.1
 parsel==1.5.1
+protobuf==3.7.0
 pyasn1==0.4.5
 pyasn1-modules==0.2.4
 pycparser==2.19
