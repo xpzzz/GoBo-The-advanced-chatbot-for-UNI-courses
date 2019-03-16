@@ -80,22 +80,15 @@ class ChatBot extends Component {
 
         try {
             if (this.state.clientToken === false) {
-                // TODO: backend implementation needed!
                 console.log('Calling backend to get token');
                 const res = await axios.get('https://gobo-api.cfapps.io/v1/auth',
-                    {
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                        }
-                    });
-                // axios.get('https://gobo-api.cfapps.io/v1/auth')
-                //     .then(function (response) {
-                //         alert(response.token);
-                //     });
-                console.log('Getting auth from backend: ' + res);
-                console.log(res);
-
-                this.setState({clientToken: res.data.token});
+                // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
+                ).then((response) => {
+                    console.log(response);
+                    this.setState({clientToken: response.data.token});
+                }).catch((response) => {
+                    console.log('rejected' + response);
+                });
             }
 
             var config = {
