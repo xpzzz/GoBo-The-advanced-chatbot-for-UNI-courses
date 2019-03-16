@@ -6,11 +6,11 @@ from flask import Flask
 
 
 # def create_app():
-from .v1 import bp
+import v1
 
 app = Flask(__name__, static_folder='static')
 app.register_blueprint(
-    bp,
+    v1.bp,
     url_prefix='/v1')
     # return app
 

@@ -29,6 +29,25 @@ schemes:
 - "https"
 - "http"
 paths:
+  /auth:
+    get:
+      tags:
+        - 'Access Token'
+      summary: 'Get an access token to communicate with df'
+      description: ''
+      produces:
+      - 'application/json'
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                description: 'token from server'
+
+
   /knowledge_base:
     post:
       tags:

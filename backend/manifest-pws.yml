@@ -3,4 +3,8 @@ applications:
   - name: gobo-api
     path: .
     instances: 2
-    memory: 64M
+    memory: 192M
+    env:
+      GOOGLE_PK_ID: $GOOGLE_PK_ID
+      GOOGLE_PK: $GOOGLE_PK
+      GOOGLE_SERVICE_ACCOUNT: $GOOGLE_SERVICE_ACCOUNT
