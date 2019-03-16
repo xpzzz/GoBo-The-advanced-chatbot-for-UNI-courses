@@ -1,0 +1,6 @@
+---
+applications:
+  - name: gobo-api
+    path: .
+    instances: 2
+    memory: 64M
