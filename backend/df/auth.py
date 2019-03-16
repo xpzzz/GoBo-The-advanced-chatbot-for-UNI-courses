@@ -1,15 +1,3 @@
-import logging
-
-from .v1 import bp
-from .v1.api import auth
-
-
-@bp.route('/auth', ['GET'])
-def get_access_token():
-    logging.info('Called')
-    token = auth.get_token()
-    return {'token': token}, 200, None
-
 from __future__ import absolute_import
 
 import os
