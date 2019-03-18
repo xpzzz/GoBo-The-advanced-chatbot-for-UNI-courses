@@ -4,6 +4,7 @@ from __future__ import absolute_import, print_function
 import logging
 
 from flask import request, g
+from flask_cors import cross_origin
 
 from . import Resource
 from .. import schemas
@@ -16,6 +17,7 @@ import jwt
 
 class Auth(Resource):
 
+    # @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
     def get(self):
         print('[ENV] Google Service Account: ' + os.getenv('GOOGLE_SERVICE_ACCOUNT'))
         token = self.get_token()
