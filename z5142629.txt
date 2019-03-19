@@ -16,3 +16,4 @@ The object course has been decided. I assisted scrum master with proposal and ga
 
 
 ###week4
+I wrote the yaml file with swagger and used swagger-codegen to construct the framework of backend api. And wrote document_implement and knowledge base_implement as tools for managing the knowledge base content on Dialogflow. Together with teammate, we figured out the authurisation method used to get jwt token for frontend. 
