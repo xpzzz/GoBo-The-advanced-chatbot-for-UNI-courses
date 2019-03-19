@@ -59,6 +59,25 @@ jobs:
             cf push -f manifest-pws.yml
             cf logout
 
+  deploy-api:
+    working_directory: ~/czhx/
+    docker:
+      - image: governmentpaas/cf-cli
+    steps:
+      - checkout
+      - run:
+          name: Check File Structure
+          command: |
+            pwd
+            find .
+      - run:
+          name: Push to Pivotal
+          command: |
+            cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
+            cf push -f manifest-pws.yml
+            cf logout
+          path: ~/czhx/backend
+
 workflows:
   version: 2
   build_and_deploy:
@@ -77,3 +96,10 @@ workflows:
               only:
                 - master
                 - frontend
+
+      - deploy-api:
+          filters:
+            branches:
+              only:
+                - master
+                - production
