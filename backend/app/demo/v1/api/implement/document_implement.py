@@ -34,6 +34,7 @@ def list_documents(PROJECT_ID, KID):
         for knowledge_type in document.knowledge_types:
             print('    - {}'.format(KNOWLEDGE_TYPES[knowledge_type]))
         print(' - Source: {}\n'.format(document.content_uri))
+        print(' - Detail Location: {}'.format(document.name))
 
     #content returned
     document_list = []
@@ -100,6 +101,7 @@ def create_document(PROJECT_ID, KID, document_name, mime_type,
     for knowledge_type in document.knowledge_types:
         print('    - {}'.format(KNOWLEDGE_TYPES[knowledge_type]))
     print(' - Source: {}\n'.format(document.content_uri))
+    print(' - Detail Location: {}'.format(document.name))
 
     #content returned
     document_dict = dict()
@@ -146,6 +148,7 @@ def get_document(PROJECT_ID, KID, DID):
     for knowledge_type in response.knowledge_types:
         print('    - {}'.format(KNOWLEDGE_TYPES[knowledge_type]))
     print(' - Source: {}\n'.format(response.content_uri))
+    print(' - Detail Location: {}'.format(response.name))
 
     # content returned
     document_dict = dict()
