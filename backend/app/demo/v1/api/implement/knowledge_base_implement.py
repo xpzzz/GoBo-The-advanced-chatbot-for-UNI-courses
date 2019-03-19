@@ -45,6 +45,7 @@ def list_knowledge_bases(PROJECT_ID):
     for knowledge_base in client.list_knowledge_bases(project_path):
         print(' - Display Name: {}'.format(knowledge_base.display_name))
         print(' - Knowledge ID: {}\n'.format(knowledge_base.name.split("/")[-1]))
+        print(' - Detail Location: {}\n'.format(knowledge_base.name))
 
     #content returned
     knowledge_base_list = []
@@ -88,6 +89,7 @@ def create_knowledge_base(PROJECT_ID, display_name):
     print('Knowledge Base created:\n')
     print('Display Name: {}\n'.format(response.display_name))
     print('Knowledge ID: {}\n'.format(response.name.split("/")[-1]))
+    print('Detail Location: {}\n'.format(response.name))
 
     #content returned
     knowledge_base_dict = dict()
@@ -131,6 +133,7 @@ def get_knowledge_base(PROJECT_ID, KID):
     print('Got Knowledge Base:')
     print(' - Display Name: {}'.format(response.display_name))
     print(' - Knowledge ID: {}'.format(response.name.split("/")[-1]))
+    print(' - Detail Location: {}'.format(response.name))
     #content returned
     knowledge_base_dict = dict()
     knowledge_base_dict["knowledge-base-id"] = str(response.name.split("/")[-1])
