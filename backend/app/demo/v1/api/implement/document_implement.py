@@ -28,7 +28,7 @@ def list_documents(PROJECT_ID, KID):
     print('Documents for Knowledge Id: {}'.format(KID))
     for document in client.list_documents(knowledge_base_path):
         print(' - Display Name: {}'.format(document.display_name))
-        print(' - document ID: {}'.format(document.name))
+        print(' - document ID: {}'.format(document.name.split("/")[-1]))
         print(' - MIME Type: {}'.format(document.mime_type))
         print(' - Knowledge Types:')
         for knowledge_type in document.knowledge_types:
@@ -94,7 +94,7 @@ def create_document(PROJECT_ID, KID, document_name, mime_type,
     document = response.result(timeout=90)
     print('Created Document:')
     print(' - Display Name: {}'.format(document.display_name))
-    print(' - document ID: {}'.format(document.name))
+    print(' - document ID: {}'.format(document.name.split("/")[-1]))
     print(' - MIME Type: {}'.format(document.mime_type))
     print(' - Knowledge Types:')
     for knowledge_type in document.knowledge_types:
@@ -140,7 +140,7 @@ def get_document(PROJECT_ID, KID, DID):
     # testing stout
     print('Got Document:')
     print(' - Display Name: {}'.format(response.display_name))
-    print(' - Knowledge ID: {}'.format(response.name))
+    print(' - Knowledge ID: {}'.format(response.name.split("/")[-1]))
     print(' - MIME Type: {}'.format(response.mime_type))
     print(' - Knowledge Types:')
     for knowledge_type in response.knowledge_types:
