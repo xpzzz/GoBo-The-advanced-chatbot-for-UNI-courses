@@ -20,4 +20,4 @@ Dialogflow needs more explanation as the team members feel confused during the w
 
 
 ## week 4
-Implement google API encapsulation with the base API implement. Digging possibilities from the current architecture to make the project works more efficient. 
+Implement google API encapsulation with the base API implement. Digging possibilities from the current architecture to make the project works more efficient. Also reading related documents of Restful API call to help improving the API implement.
