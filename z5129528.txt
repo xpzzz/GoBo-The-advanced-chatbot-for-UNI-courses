@@ -13,3 +13,7 @@ Group formed. I linked GitHub accounts with zID in classroom and joined into the
 
 As the proposal needs a lot of refining, I spent the week mainly on rewriting the proposal. The main function of the application has been changed. Meanwhile, I held a meeting every two days, and pushed team members to contribute into the proposal and the project.
 
+
+## week 3
+
+Dialogflow needs more explaination as the teammembers feel confused during the work of this week. As a result, I read the dialogflow documents and Google dialogflow API v2 documents.
