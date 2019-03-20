@@ -16,4 +16,8 @@ As the proposal needs a lot of refining, I spent the week mainly on rewriting th
 
 ## week 3
 
-Dialogflow needs more explaination as the teammembers feel confused during the work of this week. As a result, I read the dialogflow documents and Google dialogflow API v2 documents.
+Dialogflow needs more explanation as the team members feel confused during the work of this week. As a result, I read the dialogflow documents and Google dialogflow API v2 documents.
+
+
+## week 4
+Implement google API encapsulation with the base API implement. Digging possibilities from the current architecture to make the project works more efficient. 
