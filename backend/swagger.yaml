@@ -78,6 +78,8 @@ paths:
       responses:
         200:
           description: "OK"
+          schema:
+            $ref: '#/definitions/TextResponse'
         
 
 
@@ -268,6 +270,18 @@ paths:
 
 
 definitions:
+  TextResponse:
+    type: "object"
+    required: 
+    - "text"
+    properties:
+      text:
+        description: "The response to text input"
+        type: "string"
+      # confidence:
+      #   description: "The fulfillment detected confidence"
+      #   type: "string"
+
 
   NewKB:
     type: "object"
@@ -373,3 +387,5 @@ definitions:
         description: "The source of the Document."
         type: "string"
         example: "gs://test/test01.csv"
+        
+    
