@@ -13,7 +13,7 @@ class MessageItem extends Component {
                 <Col span={2}>
                     {this.props.data.speaks === 'bot' &&
                     <div>
-                        <a href="/">{this.props.data.speaks}</a>
+                        <a >{this.props.data.speaks}</a>
                     </div>
                     }
                 </Col>
@@ -25,7 +25,7 @@ class MessageItem extends Component {
                 <Col span={2}>
                     {this.props.data.speaks === 'user' &&
                     <div className="col s2">
-                        <a href="/">{this.props.data.speaks}</a>
+                        <a >{this.props.data.speaks}</a>
                     </div>
                     }
                 </Col>

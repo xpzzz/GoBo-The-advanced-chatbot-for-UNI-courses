@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Title from './components/title';
 import {Layout} from 'antd';
 import MessageList from './components/messageList';
-import InputForm from './components/inputForm';
+import Form from './components/form';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import {v4 as uuid} from 'uuid';
@@ -14,7 +14,8 @@ class ChatBot extends Component {
     constructor(props) {
         super(props);
         // These bindings are necessary to make `this` work in the callback
-        this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
+
+        this.passMessage = this.passMessage.bind(this);
         this.state = {
             messages: [
                 {
@@ -35,7 +36,6 @@ class ChatBot extends Component {
                 }],
             showWelcomeSent: false,
             clientToken: false,
-            // clientToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjI2NjYxNGY3NzJlMGRhNTAzYmUzMmIxNjJkNGJiNjg1NjZjZWY1ZGQifQ.eyJpc3MiOiJkaWFsb2dmbG93LW5uaGppZUBnb2JvLTk3ZTVlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZGlhbG9nZmxvdy1ubmhqaWVAZ29iby05N2U1ZS5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsImF1ZCI6Imh0dHBzOi8vZGlhbG9nZmxvdy5nb29nbGVhcGlzLmNvbS9nb29nbGUuY2xvdWQuZGlhbG9nZmxvdy52MmJldGExLlNlc3Npb25zIiwiZXhwIjoxNTUyNzUwODkyLjYwMDg5LCJpYXQiOjE1NTI3NDcyOTIuNjAwODl9.dEz200K7SD80A6vUq8HrHpBOlN783W0SKRrtKPYSjtiJCGyRME2ScurGyGZHIVtgKX3In_VDUTy6_skTcnTUki3qAN99ro_D0EQvCYi6vX647ZSb7HDqfSoeqpXtX5-tXEYUJahI0YmWwk-sxUTleG49xUSGQuz6U9HXxU8H69RjdhlrZpktINfccZxI48dOYZMQCCwiaZuEKV4PdwvwAzKW6GPG2MkJvnm4ZZjlkv8ADM3qPtc-KVvSjtKt6SVktGqeCR7NTfKqf9N-ZUaiKHs0gFEp9Z5zyw9o42UGz_NB8a4OWGgKN-3mVYo87xVAYUb4ue-lXDpCNU6TcGNumQ",
             regenerateToken: 0,
         };
         if (cookies.get('userID') === undefined) {
@@ -71,10 +71,7 @@ class ChatBot extends Component {
 
 
     async dfClientCall(request) {
-        // let says = await {
-        //     speaks: 'bot',
-        //     msg: "One more time!"
-        // };
+
 
         console.log('ClientCall!');
 
@@ -82,7 +79,7 @@ class ChatBot extends Component {
             if (this.state.clientToken === false) {
                 console.log('Calling backend to get token');
                 await axios.get('https://gobo-api.cfapps.io/v1/auth',
-                // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
+                    // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
                 ).then((response) => {
                     console.log(response);
                     this.setState({clientToken: response.data.token});
@@ -140,13 +137,10 @@ class ChatBot extends Component {
     };
 
 
-    _handleInputKeyPress(e) {
-        if (e.key === 'Enter') {
-            this.dfTextQuery(e.target.value);
-            e.target.value = '';
-
-        }
+    passMessage(value) {
+        this.dfTextQuery(value);
     }
+
 
     render() {
         return (
@@ -154,7 +148,7 @@ class ChatBot extends Component {
                 <Layout className="layout" style={styles}>
                     <Title/>
                     <MessageList data={this.state.messages}/>
-                    <InputForm onKeyPress={this._handleInputKeyPress}/>
+                    <Form passMessage={this.passMessage}/>
                 </Layout>
             </div>
 
