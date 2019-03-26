@@ -49,13 +49,18 @@ class ChatBot extends Component {
             this.setState({messages: [...this.state.messages, says]});
             console.log((this.state.messages));
         });
+        // const request = {
+        //     queryInput: {
+        //         text: {
+        //             text: text,
+        //             languageCode: 'en-AU',
+        //         },
+        //     }
+        // };
         const request = {
-            queryInput: {
-                text: {
-                    text: text,
-                    languageCode: 'en-AU',
-                },
-            }
+            text: text,
+            sessionID: "42"  // TODO: change this value to a real random id e.g. uuid()
+                            // TODO: think about where to store this value, state/redux?
         };
 
         await this.dfClientCall(request);
@@ -67,71 +72,96 @@ class ChatBot extends Component {
 
         console.log('ClientCall!');
 
-        try {
-            if (this.state.clientToken === false) {
-                console.log('Calling backend to get token');
-                await axios.get('https://gobo-api.cfapps.io/v1/auth',
-                    // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
-                ).then((response) => {
-                    console.log(response);
-                    this.setState({clientToken: response.data.token});
-                }).catch((response) => {
-                    console.log('rejected' + response);
-                });
-            }
+        // try {
+        //     if (this.state.clientToken === false) {
+        //         console.log('Calling backend to get token');
+        //         await axios.get('https://gobo-api.cfapps.io/v1/auth',
+        //             // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
+        //         ).then((response) => {
+        //             console.log(response);
+        //             this.setState({clientToken: response.data.token});
+        //         }).catch((response) => {
+        //             console.log('rejected' + response);
+        //         });
+        //     }
+        //
+        //     var config = {
+        //         headers: {
+        //             'Authorization': 'Bearer ' + this.state.clientToken,
+        //             'Content-Type': 'application/json; charset=utf-8'
+        //         }
+        //     };
 
-            var config = {
+            // const res = await axios.post(
+            //     'https://dialogflow.googleapis.com/v2beta1/projects/' +
+            //     'gobo-97e5e' +
+            //     '/agent/sessions/' +
+            //     "1" +
+            //     cookies.get('userID') +
+            //     ':detectIntent',
+            //     request,
+            //     config
+            // );
+
+            const config = {
                 headers: {
-                    'Authorization': 'Bearer ' + this.state.clientToken,
                     'Content-Type': 'application/json; charset=utf-8'
                 }
             };
-
             const res = await axios.post(
-                'https://dialogflow.googleapis.com/v2beta1/projects/' +
-                'gobo-97e5e' +
-                '/agent/sessions/' +
-                "1" +
-                cookies.get('userID') +
-                ':detectIntent',
+                'http://localhost:5000/v1/ask',
                 request,
                 config
-            );
+            ).catch(err=>console.log(err));
 
             let says = {};
 
-            if (res.data.queryResult.fulfillmentMessages) {
-                for (let msg of res.data.queryResult.fulfillmentMessages) {
-                    says = {
-                        speaks: 'bot',
-                        msg: msg
-                    };
-                    this.setState({messages: [...this.state.messages, says]});
-                }
-            }
-        } catch (e) {
-            if (e.response.status === 401 && this.state.regenerateToken < 1) {
-                this.setState({clientToken: false, regenerateToken: 1});
-                this.dfClientCall(request);
-            } else {
-                let says = {
+            console.log('response from server: ', res);
+
+            if (res.data.text) {
+                says = {
                     speaks: 'bot',
                     msg: {
                         text: {
-                            text: 'I\'m having issues. Will be back later'
+                            text: res.data.text,
                         }
                     }
                 };
-                this.setState({messages: [...this.state.message, says]});
-                console.log(this.state.message);
+            } else {
+                says = {
+                    speaks: 'bot',
+                    msg: {
+                        text: {
+                            text: 'I\'m having issues, please wait for a moment or contact my admin',
+                        }
+                    }
+                }
             }
+            console.log('updating says: ', says);
+            this.setState({messages: [...this.state.messages, says]});
+            // this.passMessage(this.state.messages);
+        // } catch (e) {
+        //     if (e.response.status === 401 && this.state.regenerateToken < 1) {
+        //         this.setState({clientToken: false, regenerateToken: 1});
+        //         this.dfClientCall(request);
+        //     } else {
+        //         let says = {
+        //             speaks: 'bot',
+        //             msg: {
+        //                 text: {
+        //                     text: 'I\'m having issues. Will be back later'
+        //                 }
+        //             }
+        //         };
+        //         this.setState({messages: [...this.state.message, says]});
+        //         console.log(this.state.message);
+        //     }
         }
-    };
 
 
     passMessage(value) {
         this.dfTextQuery(value);
-    }
+    };
 
 
     render() {
@@ -146,7 +176,7 @@ class ChatBot extends Component {
 
 
         );
-    }
+    };
 
 }
 
