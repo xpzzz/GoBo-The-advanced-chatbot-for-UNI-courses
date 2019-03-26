@@ -13,6 +13,7 @@ cssselect==1.0.3
 dialogflow==0.5.2
 dpath==1.4.2
 Flask==1.0.2
+Flask-Cors==3.0.7
 Flask-RESTful==0.3.7
 google-api-core==1.8.1
 google-auth==1.6.3

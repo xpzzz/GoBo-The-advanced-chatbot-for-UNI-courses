@@ -1,15 +1,19 @@
 version: 2
 jobs:
   build:
-    branches: 
-      only:
-        - master
-        - frontend
     working_directory: ~/czhx
     docker:
       - image: circleci/node:10.15.1
     steps:
       - checkout
+      - run:
+          name: Check Branch
+          command: 'echo $CIRCLE_BRANCH'
+      - run:
+          name: Check File Structure
+          command: |
+            pwd
+            find .
       - run:
           name: Init Yarn
           command: 'yarn install'
@@ -22,5 +26,80 @@ jobs:
           name: Build
           command: 'yarn build'
           path: ~/czhx/czhx-web
-      - store_artifacts:
-          path: build
+      - run:
+          name: Create WorkSpace
+          command: |
+            mkdir -p ~/czhx/workspace
+            cp -r ~/czhx/czhx-web/build ~/czhx/workspace/build
+            cp ~/czhx/czhx-web/manifest-pws.yml ~/czhx/workspace/build/
+            find ~/czhx/workspace
+      - persist_to_workspace:
+          root: workspace
+          paths:
+          - build
+
+  deploy:
+    working_directory: ~/czhx
+    docker:
+      - image: governmentpaas/cf-cli
+    steps:
+      - attach_workspace:
+          at: ~/czhx/workspace
+      - run:
+          name: Check WorkSpace
+          command: |
+            pwd
+            find .
+      - run:
+          name: Push to Pivotal
+          command: |
+            cd workspace
+            mv build/manifest-pws.yml .
+            cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
+            cf push -f manifest-pws.yml
+            cf logout
+
+  deploy-api:
+    working_directory: ~/czhx/
+    docker:
+      - image: governmentpaas/cf-cli
+    steps:
+      - checkout
+      - run:
+          name: Check File Structure
+          command: |
+            pwd
+            find .
+      - run:
+          name: Push to Pivotal
+          command: |
+            cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
+            cf push -f manifest-pws.yml
+            cf logout
+          path: ~/czhx/backend
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+                - frontend
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+                - frontend
+
+      - deploy-api:
+          filters:
+            branches:
+              only:
+                - master
+                - production
