@@ -18,7 +18,7 @@ app.register_blueprint(
     url_prefix='/v1')
     # return app
 cors = CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 if __name__ == '__main__':
