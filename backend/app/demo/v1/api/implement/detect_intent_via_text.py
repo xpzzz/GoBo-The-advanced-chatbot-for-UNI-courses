@@ -1,3 +1,5 @@
+from os.path import dirname
+
 import dialogflow_v2beta1 as dialogflow
 from google.api_core.exceptions import InvalidArgument
 
@@ -12,7 +14,9 @@ def detect_intent_texts(PROJECT_ID, session_id, texts, language_code='en-US'):
     :parameter language_code: language kind, default as en-US
     :return text_dict as response, invalid input returns msg
     """
-    session_client = dialogflow.SessionsClient()
+
+    pathname = dirname(__file__) + '/tmp.json'
+    session_client = dialogflow.SessionsClient().from_service_account_json(pathname)
 
     session = session_client.session_path(PROJECT_ID, session_id)
     print('Session path: {}\n'.format(session))
