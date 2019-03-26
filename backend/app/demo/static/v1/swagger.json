@@ -21,6 +21,10 @@
     {
       "name": "Document",
       "description": "Access to Document management"
+    },
+    {
+      "name": "Communication",
+      "description": "Access to interact with dialogflow"
     }
   ],
   "paths": {
@@ -45,6 +49,52 @@
                   "description": "token from server"
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "/ask": {
+      "post": {
+        "tags": [
+          "Communication"
+        ],
+        "summary": "Interact with GoBo agent via texts, maintained by session id",
+        "description": "",
+        "operationId": "communicateText",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "payload",
+            "description": "The user to input.",
+            "schema": {
+              "type": "object",
+              "required": [
+                "text",
+                "sessionID"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "sessionID": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TextResponse"
             }
           }
         }
@@ -290,6 +340,18 @@
     }
   },
   "definitions": {
+    "TextResponse": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "description": "The response to text input",
+          "type": "string"
+        }
+      }
+    },
     "NewKB": {
       "type": "object",
       "required": [
