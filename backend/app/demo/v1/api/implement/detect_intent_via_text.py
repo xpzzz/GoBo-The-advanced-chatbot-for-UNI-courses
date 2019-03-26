@@ -37,6 +37,8 @@ def detect_intent_texts(PROJECT_ID, session_id, texts, language_code='en-US'):
         response.query_result.intent_detection_confidence))
     print('Fulfillment text: {}\n'.format(
         response.query_result.fulfillment_text))
-    text_dict = dict()
-    text_dict["text"] = str(response.query_result.fulfillment_text)
-    return text_dict
+    # text_dict = dict()
+    # text_dict["text"] = str(response.query_result.fulfillment_text)
+    text_resp = str(response.query_result.fulfillment_text)
+    # print(text_dict)
+    return {'text': text_resp}
