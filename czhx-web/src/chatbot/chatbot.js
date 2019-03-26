@@ -22,15 +22,7 @@ class ChatBot extends Component {
                     speaks: 'bot',
                     msg: {
                         text: {
-                            text: "Hello~ I'm GoBo"
-                        }
-                    }
-                },
-                {
-                    speaks: 'user',
-                    msg: {
-                        text: {
-                            text: "Hello~ I'm Eric!"
+                            text: "Hello~ I'm GoBo~"
                         }
                     }
                 }],
