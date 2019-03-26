@@ -10,11 +10,8 @@ import os
 
 _pid = os.getenv('PROJECT_ID')
 
+
 class Ask(Resource):
-    # def __init__(self):
-    #     # get PROJECT_ID, session_id, texts
-    #     assert (os.getenv('PROJECT_ID'))
-        # assert (os.getenv(''))
 
     def post(self):
         # print(g.json)
@@ -29,10 +26,10 @@ class Ask(Resource):
         sid = g.json['sessionID']
         text = g.json['text']
 
-
-        if not sid or not text: # TODO this check is not working rn
+        if not sid or not text:
+            # TODO this check is not working rn
             return 'Missing essential payload', 401, None
 
-        text_dict = di.detect_intent_texts(_pid,sid,text)
+        text_dict = di.detect_intent_texts(_pid, sid, text)
 
         return text_dict, 200, None

@@ -1,6 +1,7 @@
 import dialogflow_v2beta1 as dialogflow
 from google.api_core.exceptions import InvalidArgument
 
+
 def detect_intent_texts(PROJECT_ID, session_id, texts, language_code='en-US'):
     """Returns the result of detect intent with texts as inputs.
 
@@ -19,7 +20,6 @@ def detect_intent_texts(PROJECT_ID, session_id, texts, language_code='en-US'):
     # for text in texts:
     #     text_input = dialogflow.types.TextInput(
     #         text=text, language_code=language_code)
-
 
     text_input = dialogflow.types.TextInput(
         text=texts, language_code=language_code)
