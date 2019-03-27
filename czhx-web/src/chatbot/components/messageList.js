@@ -1,18 +1,27 @@
 import React, {Component} from 'react';
-import {Layout} from 'antd';
-import {
-    List,
-    // Avatar
-} from 'antd';
+import {Layout, List} from 'antd';
 import MessageItem from './messageItem';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 const {Content} = Layout;
 
-window.HTMLElement.prototype.scrollIntoView = function() {};
+// window.HTMLElement.prototype.scrollIntoView = function() {};
 
 class MessageList extends Component {
+    constructor(props) {
+        super(props);
+        this.messagesEnd = React.createRef();
+    }
+
+
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "auto" });
+        // this function is non-standard
+        // this.messagesEnd.current.scrollIntoViewIfNeeded();
+        scrollIntoView(this.messagesEnd.current, {
+            scrollMode: 'if-needed',
+            block: 'nearest',
+            inline: 'nearest',
+        });
     };
 
     componentDidMount() {
@@ -35,7 +44,7 @@ class MessageList extends Component {
                         <MessageItem data={item}/>
                     )}
                 >
-                    <div ref={(el) => { this.messagesEnd = el; }}>---</div>
+                    <div ref={this.messagesEnd}>---</div>
                 </List>
 
             </Content>
@@ -44,13 +53,12 @@ class MessageList extends Component {
 }
 
 
-
 const styles = {
     height: '352px',
     weight: '300px',
     backgroundColor: '#f4eaf5',
     padding: '10px',
-    overflow:'auto',
+    overflow: 'auto',
     display: 'block',
 };
 
