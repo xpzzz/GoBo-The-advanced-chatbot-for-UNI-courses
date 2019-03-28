@@ -5,7 +5,6 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 
 const {Content} = Layout;
 
-// window.HTMLElement.prototype.scrollIntoView = function() {};
 
 class MessageList extends Component {
     constructor(props) {
@@ -37,6 +36,7 @@ class MessageList extends Component {
             <Content style={styles}>
 
                 <List
+                    split={true}
                     style={styles}
                     itemLayout="horizontal"
                     dataSource={this.props.data}

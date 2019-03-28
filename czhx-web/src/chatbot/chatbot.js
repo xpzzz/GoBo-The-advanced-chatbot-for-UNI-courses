@@ -38,6 +38,7 @@ class ChatBot extends Component {
     async dfTextQuery(text) {
         let says = {
             speaks: 'user',
+            icon:iconIndex,
             msg: {
                 text: {
                     text: text
@@ -158,11 +159,19 @@ class ChatBot extends Component {
         //     }
         }
 
-
+    //cant replace this passMessage just as this.dftextquery
+    // because value is not define
     passMessage(value) {
         this.dfTextQuery(value);
     };
 
+
+    randomIcon(){
+        return [Math.floor(Math.random() * 3)];
+    }
+    componentWillMount() {
+        iconIndex =this.randomIcon();
+    }
 
     render() {
         return (
@@ -179,7 +188,7 @@ class ChatBot extends Component {
     };
 
 }
-
+let iconIndex=0;
 
 const styles = {
     width: '320px',
