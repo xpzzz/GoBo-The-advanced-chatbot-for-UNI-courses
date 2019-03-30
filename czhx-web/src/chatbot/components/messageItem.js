@@ -13,8 +13,8 @@ class MessageItem extends Component {
 
     render() {
         return (
-            <Row>
-                <Col span={2}>
+            <Row >
+                <Col span={2} pull={1}>
                     {this.props.data.speaks === 'bot' &&
                     <div>
                         <Avatar size={30}
@@ -22,8 +22,8 @@ class MessageItem extends Component {
                     </div>
                     }
                 </Col>
-                <Col span={20}>
-                    <span className="black-text">
+                <Col span={20} style={messageStyle}>
+                    <span className="black-text" >
                         {this.props.data.msg.text.text}
                       </span>
                 </Col>
@@ -48,5 +48,13 @@ const userIcon=[
     'https://as2.ftcdn.net/jpg/01/80/58/43/500_F_180584318_kcRpImU2nfJqasP8PrOZayGURuKMIbit.jpg'
 
 ];
+const messageStyle={
+    position:'relative',
+    border:'1px solid #989898',
+    borderRadius:'5px',
+    background:'#fff',
+    padding:'5px 8px',
+    margin:'1px auto',
+};
 
 export default MessageItem;

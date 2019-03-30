@@ -17,7 +17,7 @@ class ChatBot extends Component {
         // These bindings are necessary to make `this` work in the callback
 
         this.passMessage = this.passMessage.bind(this);
-        this.newSessionId=this.newSessionId.bind(this);
+        this.newSessionId = this.newSessionId.bind(this);
         this.state = {
             messages: [
                 {
@@ -40,7 +40,7 @@ class ChatBot extends Component {
     async dfTextQuery(text) {
         let says = {
             speaks: 'user',
-            icon:iconIndex,
+            icon: iconIndex,
             msg: {
                 text: {
                     text: text
@@ -95,54 +95,54 @@ class ChatBot extends Component {
         //         }
         //     };
 
-            // const res = await axios.post(
-            //     'https://dialogflow.googleapis.com/v2beta1/projects/' +
-            //     'gobo-97e5e' +
-            //     '/agent/sessions/' +
-            //     "1" +
-            //     cookies.get('userID') +
-            //     ':detectIntent',
-            //     request,
-            //     config
-            // );
+        // const res = await axios.post(
+        //     'https://dialogflow.googleapis.com/v2beta1/projects/' +
+        //     'gobo-97e5e' +
+        //     '/agent/sessions/' +
+        //     "1" +
+        //     cookies.get('userID') +
+        //     ':detectIntent',
+        //     request,
+        //     config
+        // );
 
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
+        const config = {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        };
+        const res = await axios.post(
+            'https://gobo-api.cfapps.io/v1/ask',
+            request,
+            config
+        ).catch(err => console.log(err));
+
+        let says = {};
+
+        console.log('response from server: ', res);
+
+        if (res.data.text) {
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: res.data.text,
+                    }
                 }
             };
-            const res = await axios.post(
-                'https://gobo-api.cfapps.io/v1/ask',
-                request,
-                config
-            ).catch(err=>console.log(err));
-
-            let says = {};
-
-            console.log('response from server: ', res);
-
-            if (res.data.text) {
-                says = {
-                    speaks: 'bot',
-                    msg: {
-                        text: {
-                            text: res.data.text,
-                        }
-                    }
-                };
-            } else {
-                says = {
-                    speaks: 'bot',
-                    msg: {
-                        text: {
-                            text: 'I\'m having issues, please wait for a moment or contact my admin',
-                        }
+        } else {
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: 'I\'m having issues, please wait for a moment or contact my admin',
                     }
                 }
             }
-            console.log('updating says: ', says);
-            this.setState({messages: [...this.state.messages, says]});
-            // this.passMessage(this.state.messages);
+        }
+        console.log('updating says: ', says);
+        this.setState({messages: [...this.state.messages, says]});
+        // this.passMessage(this.state.messages);
         // } catch (e) {
         //     if (e.response.status === 401 && this.state.regenerateToken < 1) {
         //         this.setState({clientToken: false, regenerateToken: 1});
@@ -159,7 +159,7 @@ class ChatBot extends Component {
         //         this.setState({messages: [...this.state.message, says]});
         //         console.log(this.state.message);
         //     }
-        }
+    }
 
     //cant replace this passMessage just as this.dftextquery
     // because value is not define
@@ -168,24 +168,25 @@ class ChatBot extends Component {
     };
 
 
-    randomIcon(){
+    randomIcon() {
         return [Math.floor(Math.random() * 3)];
     }
-    newSessionId(){
-        let value=uuidv4();
-        sessionStorage.setItem('gobo',value);
-        session_ID=value;
+
+    newSessionId() {
+        let value = uuidv4();
+        sessionStorage.setItem('gobo', value);
+        session_ID = value;
     }
 
     componentWillMount() {
-        if (sessionStorage.getItem('gobo')){
-            session_ID=sessionStorage.getItem('gobo');
+        if (sessionStorage.getItem('gobo')) {
+            session_ID = sessionStorage.getItem('gobo');
         } else {
             this.newSessionId();
         }
 
-        iconIndex =this.randomIcon();
-        console.log('session_ID'+session_ID);
+        iconIndex = this.randomIcon();
+        console.log('session_ID' + session_ID);
     }
 
     render() {
@@ -203,8 +204,9 @@ class ChatBot extends Component {
     };
 
 }
-let iconIndex=0;
-let session_ID=0;
+
+let iconIndex = 0;
+let session_ID = 0;
 const styles = {
     width: '320px',
     height: '480px',
