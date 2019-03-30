@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 import {v4 as uuid} from 'uuid';
 
 const cookies = new Cookies();
+const uuidv4 = require('uuid/v4');
 
 class ChatBot extends Component {
 
@@ -16,6 +17,7 @@ class ChatBot extends Component {
         // These bindings are necessary to make `this` work in the callback
 
         this.passMessage = this.passMessage.bind(this);
+        this.newSessionId=this.newSessionId.bind(this);
         this.state = {
             messages: [
                 {
@@ -60,8 +62,8 @@ class ChatBot extends Component {
         // };
         const request = {
             text: text,
-            sessionID: "42"  // TODO: change this value to a real random id e.g. uuid()
-                            // TODO: think about where to store this value, state/redux?
+            sessionID: session_ID
+
         };
 
         await this.dfClientCall(request);
@@ -169,8 +171,21 @@ class ChatBot extends Component {
     randomIcon(){
         return [Math.floor(Math.random() * 3)];
     }
+    newSessionId(){
+        let value=uuidv4();
+        sessionStorage.setItem('gobo',value);
+        session_ID=value;
+    }
+
     componentWillMount() {
+        if (sessionStorage.getItem('gobo')){
+            session_ID=sessionStorage.getItem('gobo');
+        } else {
+            this.newSessionId();
+        }
+
         iconIndex =this.randomIcon();
+        console.log('session_ID'+session_ID);
     }
 
     render() {
@@ -189,7 +204,7 @@ class ChatBot extends Component {
 
 }
 let iconIndex=0;
-
+let session_ID=0;
 const styles = {
     width: '320px',
     height: '480px',
