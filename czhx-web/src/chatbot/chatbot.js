@@ -2,150 +2,263 @@ import React, {Component} from 'react';
 import Title from './components/title';
 import {Layout} from 'antd';
 import MessageList from './components/messageList';
-import InputForm from './components/inputForm';
+import Form from './components/form';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import {v4 as uuid} from 'uuid';
 
 const cookies = new Cookies();
+const uuidv4 = require('uuid/v4');
+
+const SUPPORTED_COURSES = ['comp9021', 'COMP9021', 'comp9311', 'COMP9311'];
+const DEFAULT_REPLY = {
+    speaks: 'bot',
+    msg: {
+        text: {
+            text: "Please reply a course code."
+        }
+    }
+};
+const DEBUG_REPLY = {
+    speaks: 'bot',
+    msg: {
+        text: {
+            text: "[DEBUG] Context updated!"
+        }
+    }
+};
 
 class ChatBot extends Component {
 
     constructor(props) {
         super(props);
         // These bindings are necessary to make `this` work in the callback
-        this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
+
+        this.passMessage = this.passMessage.bind(this);
+        ChatBot.newSessionId = ChatBot.newSessionId.bind(this);
         this.state = {
             messages: [
                 {
                     speaks: 'bot',
                     msg: {
                         text: {
-                            text: "Hello~ I'm GoBo"
-                        }
-                    }
-                },
-                {
-                    speaks: 'user',
-                    msg: {
-                        text: {
-                            text: "Hello~ I'm Eric!"
+                            text: "Hello~ I'm GoBo~"
                         }
                     }
                 }],
             showWelcomeSent: false,
             clientToken: false,
-            // clientToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjI2NjYxNGY3NzJlMGRhNTAzYmUzMmIxNjJkNGJiNjg1NjZjZWY1ZGQifQ.eyJpc3MiOiJkaWFsb2dmbG93LW5uaGppZUBnb2JvLTk3ZTVlLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZGlhbG9nZmxvdy1ubmhqaWVAZ29iby05N2U1ZS5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsImF1ZCI6Imh0dHBzOi8vZGlhbG9nZmxvdy5nb29nbGVhcGlzLmNvbS9nb29nbGUuY2xvdWQuZGlhbG9nZmxvdy52MmJldGExLlNlc3Npb25zIiwiZXhwIjoxNTUyNzUwODkyLjYwMDg5LCJpYXQiOjE1NTI3NDcyOTIuNjAwODl9.dEz200K7SD80A6vUq8HrHpBOlN783W0SKRrtKPYSjtiJCGyRME2ScurGyGZHIVtgKX3In_VDUTy6_skTcnTUki3qAN99ro_D0EQvCYi6vX647ZSb7HDqfSoeqpXtX5-tXEYUJahI0YmWwk-sxUTleG49xUSGQuz6U9HXxU8H69RjdhlrZpktINfccZxI48dOYZMQCCwiaZuEKV4PdwvwAzKW6GPG2MkJvnm4ZZjlkv8ADM3qPtc-KVvSjtKt6SVktGqeCR7NTfKqf9N-ZUaiKHs0gFEp9Z5zyw9o42UGz_NB8a4OWGgKN-3mVYo87xVAYUb4ue-lXDpCNU6TcGNumQ",
             regenerateToken: 0,
+            currentContext: null,
         };
         if (cookies.get('userID') === undefined) {
             cookies.set('userID', uuid(), {path: '/'});
         }
     }
 
+    static randomIcon() {
+        return [Math.floor(Math.random() * 3)];
+    }
+
+    static newSessionId() {
+        let value = uuidv4();
+        sessionStorage.setItem('gobo', value);
+        session_ID = value;
+    }
+
+    //cant replace this passMessage just as this.dftextquery
+
     async dfTextQuery(text) {
-        let says = {
-            speaks: 'user',
-            msg: {
-                text: {
-                    text: text
-                }
-            }
-        };
-        console.log(says);
-        setTimeout(() => {
-            this.setState({messages: [...this.state.messages, says]});
-            console.log((this.state.messages));
-        });
+        // let says = {
+        //     speaks: 'user',
+        //     icon: iconIndex,
+        //     msg: {
+        //         text: {
+        //             text: text
+        //         }
+        //     }
+        // };
+        // console.log(says);
+        // setTimeout(() => {
+        //     this.setState({messages: [...this.state.messages, says]});
+        //     console.log((this.state.messages));
+        // });
+        // const request = {
+        //     queryInput: {
+        //         text: {
+        //             text: text,
+        //             languageCode: 'en-AU',
+        //         },
+        //     }
+        // }
         const request = {
-            queryInput: {
-                text: {
-                    text: text,
-                    languageCode: 'en-AU',
-                },
-            }
+            text: text,
+            sessionID: session_ID,
+            context: this.state.currentContext,
         };
 
         await this.dfClientCall(request);
     };
 
-
     async dfClientCall(request) {
-        // let says = await {
-        //     speaks: 'bot',
-        //     msg: "One more time!"
-        // };
+
 
         console.log('ClientCall!');
 
-        try {
-            if (this.state.clientToken === false) {
-                console.log('Calling backend to get token');
-                await axios.get('https://gobo-api.cfapps.io/v1/auth',
-                // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
-                ).then((response) => {
-                    console.log(response);
-                    this.setState({clientToken: response.data.token});
-                }).catch((response) => {
-                    console.log('rejected' + response);
-                });
-            }
+        // try {
+        //     if (this.state.clientToken === false) {
+        //         console.log('Calling backend to get token');
+        //         await axios.get('https://gobo-api.cfapps.io/v1/auth',
+        //             // const res = await axios.get('http://0.0.0.0:5000/v1/auth',
+        //         ).then((response) => {
+        //             console.log(response);
+        //             this.setState({clientToken: response.data.token});
+        //         }).catch((response) => {
+        //             console.log('rejected' + response);
+        //         });
+        //     }
+        //
+        //     var config = {
+        //         headers: {
+        //             'Authorization': 'Bearer ' + this.state.clientToken,
+        //             'Content-Type': 'application/json; charset=utf-8'
+        //         }
+        //     };
 
-            var config = {
-                headers: {
-                    'Authorization': 'Bearer ' + this.state.clientToken,
-                    'Content-Type': 'application/json; charset=utf-8'
+        // const res = await axios.post(
+        //     'https://dialogflow.googleapis.com/v2beta1/projects/' +
+        //     'gobo-97e5e' +
+        //     '/agent/sessions/' +
+        //     "1" +
+        //     cookies.get('userID') +
+        //     ':detectIntent',
+        //     request,
+        //     config
+        // );
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin': '*'
+            }
+        };
+        console.log('Posting request...', request);
+        const res = await axios.post(
+            'https://gobo-api.cfapps.io/v1/ask',
+            // 'http://localhost:5000/v1/ask',
+            request,
+            config
+        ).catch(err => console.log(err));
+
+        let says = {};
+
+        console.log('response from server: ', res);
+
+        if (res.status === 400) {
+            // if context not provided
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: "Please reply a course code."
+                    }
+                }
+            }
+        } else if (res.status === 200) {
+            // if get a good reply
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: res.data.text,
+                    }
                 }
             };
-
-            const res = await axios.post(
-                'https://dialogflow.googleapis.com/v2beta1/projects/' +
-                'gobo-97e5e' +
-                '/agent/sessions/' +
-                "1" +
-                cookies.get('userID') +
-                ':detectIntent',
-                request,
-                config
-            );
-
-            let says = {};
-
-            if (res.data.queryResult.fulfillmentMessages) {
-                for (let msg of res.data.queryResult.fulfillmentMessages) {
-                    says = {
-                        speaks: 'bot',
-                        msg: msg
-                    };
-                    this.setState({messages: [...this.state.messages, says]});
+        } else {
+            // else, something went wrong
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: 'I\'m having issues, please wait for a moment or contact my admin',
+                    }
                 }
             }
-        } catch (e) {
-            if (e.response.status === 401 && this.state.regenerateToken < 1) {
-                this.setState({clientToken: false, regenerateToken: 1});
-                this.dfClientCall(request);
-            } else {
-                let says = {
-                    speaks: 'bot',
-                    msg: {
-                        text: {
-                            text: 'I\'m having issues. Will be back later'
-                        }
-                    }
-                };
-                this.setState({messages: [...this.state.message, says]});
-                console.log(this.state.message);
+        }
+        console.log('updating says: ', says);
+        this.setState({messages: [...this.state.messages, says]});
+        // this.passMessage(this.state.messages);
+        // } catch (e) {
+        //     if (e.response.status === 401 && this.state.regenerateToken < 1) {
+        //         this.setState({clientToken: false, regenerateToken: 1});
+        //         this.dfClientCall(request);
+        //     } else {
+        //         let says = {
+        //             speaks: 'bot',
+        //             msg: {
+        //                 text: {
+        //                     text: 'I\'m having issues. Will be back later'
+        //                 }
+        //             }
+        //         };
+        //         this.setState({messages: [...this.state.message, says]});
+        //         console.log(this.state.message);
+        //     }
+    }
+
+    // because value is not define
+    passMessage(value) {
+        let says = {
+            speaks: 'user',
+            icon: iconIndex,
+            msg: {
+                text: {
+                    text: value
+                }
             }
+        };
+        this.setState({messages: [...this.state.messages, says]});
+        // try to update context
+        if (value === 'comp9021' || value === 'COMP9021') {
+            setTimeout(() => {
+                this.setState({
+                    currentContext: 'comp9021',
+                    messages: [...this.state.messages, DEBUG_REPLY]
+                });
+            }, 2000);
+            return;
+
+        } else if (value === 'comp9311' || value === 'COMP9311') {
+            setTimeout(() => {
+                this.setState({
+                    currentContext: 'comp9311',
+                    messages: [...this.state.messages, DEBUG_REPLY]
+                });
+            }, 2000);
+            return;
+        }
+        // check context
+        if (this.state.currentContext === null && !SUPPORTED_COURSES.includes(value)) {
+            this.setState({messages: [...this.state.messages, says]});
+            setTimeout(() => {
+                this.setState({
+                    messages: [...this.state.messages, DEFAULT_REPLY]
+                });
+            }, 2000);
+        } else {
+            this.dfTextQuery(value);
         }
     };
 
-
-    _handleInputKeyPress(e) {
-        if (e.key === 'Enter') {
-            this.dfTextQuery(e.target.value);
-            e.target.value = '';
-
+    componentWillMount() {
+        if (sessionStorage.getItem('gobo')) {
+            session_ID = sessionStorage.getItem('gobo');
+        } else {
+            ChatBot.newSessionId();
         }
+
+        iconIndex = ChatBot.randomIcon();
+        console.log('session_ID' + session_ID);
     }
 
     render() {
@@ -154,17 +267,18 @@ class ChatBot extends Component {
                 <Layout className="layout" style={styles}>
                     <Title/>
                     <MessageList data={this.state.messages}/>
-                    <InputForm onKeyPress={this._handleInputKeyPress}/>
+                    <Form passMessage={this.passMessage}/>
                 </Layout>
             </div>
 
 
         );
-    }
+    };
 
 }
 
-
+let iconIndex = 0;
+let session_ID = 0;
 const styles = {
     width: '320px',
     height: '480px',
