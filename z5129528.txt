@@ -20,4 +20,15 @@ Dialogflow needs more explanation as the team members feel confused during the w
 
 
 ## week 4
+
 Implement google API encapsulation with the base API implement. Digging possibilities from the current architecture to make the project works more efficient. Also reading related documents of Restful API call to help improving the API implement.
+
+
+## week 5
+
+Adding another course (COMP9311) into dialogflow. The process of trainning DF is not what we expected. Directions might need to be changed. Encountered a problem about OAuth and the problem is solved. 
+
+
+## week 6
+
+Structure another knowledge base. Adding multiple FAQ sources for COMP9021. Changing the intent input context and output context. Discuss with teammates about if it is essential to add ML function inside the current project. 
