@@ -7,8 +7,8 @@ from ..items import HandbookItem
 
 class HandbookspiderSpider(scrapy.Spider):
     name = 'handbookspider'
-    allowed_domains = ['https://www.handbook.unsw.edu.au/postgraduate/courses/2019/COMP9021']
-    start_urls = ['https://www.handbook.unsw.edu.au/postgraduate/courses/2019/COMP9021/']
+    allowed_domains = ['https://www.handbook.unsw.edu.au/postgraduate/courses/2019/COMP9311']
+    start_urls = ['https://www.handbook.unsw.edu.au/postgraduate/courses/2019/COMP9311/']
 
     def parse(self, response):
         il = ItemLoader(item=HandbookItem(), response=response)

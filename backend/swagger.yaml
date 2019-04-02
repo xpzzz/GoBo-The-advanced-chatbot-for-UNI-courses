@@ -70,16 +70,23 @@ paths:
             required:
               - text
               - sessionID
+              - context
             properties:
               text:
                 type: string
               sessionID:
+                type: string
+              context:
                 type: string
       responses:
         200:
           description: "OK"
           schema:
             $ref: '#/definitions/TextResponse'
+            
+        400:
+          description: "missing essential input value"
+          
         
 
 
