@@ -10,6 +10,24 @@ import {v4 as uuid} from 'uuid';
 const cookies = new Cookies();
 const uuidv4 = require('uuid/v4');
 
+const SUPPORTED_COURSES = ['comp9021', 'COMP9021', 'comp9311', 'COMP9311'];
+const DEFAULT_REPLY = {
+    speaks: 'bot',
+    msg: {
+        text: {
+            text: "Please reply a course code."
+        }
+    }
+};
+const DEBUG_REPLY = {
+    speaks: 'bot',
+    msg: {
+        text: {
+            text: "[DEBUG] Context updated!"
+        }
+    }
+};
+
 class ChatBot extends Component {
 
     constructor(props) {
@@ -17,7 +35,7 @@ class ChatBot extends Component {
         // These bindings are necessary to make `this` work in the callback
 
         this.passMessage = this.passMessage.bind(this);
-        this.newSessionId = this.newSessionId.bind(this);
+        ChatBot.newSessionId = ChatBot.newSessionId.bind(this);
         this.state = {
             messages: [
                 {
@@ -31,27 +49,40 @@ class ChatBot extends Component {
             showWelcomeSent: false,
             clientToken: false,
             regenerateToken: 0,
+            currentContext: null,
         };
         if (cookies.get('userID') === undefined) {
             cookies.set('userID', uuid(), {path: '/'});
         }
     }
 
+    static randomIcon() {
+        return [Math.floor(Math.random() * 3)];
+    }
+
+    static newSessionId() {
+        let value = uuidv4();
+        sessionStorage.setItem('gobo', value);
+        session_ID = value;
+    }
+
+    //cant replace this passMessage just as this.dftextquery
+
     async dfTextQuery(text) {
-        let says = {
-            speaks: 'user',
-            icon: iconIndex,
-            msg: {
-                text: {
-                    text: text
-                }
-            }
-        };
-        console.log(says);
-        setTimeout(() => {
-            this.setState({messages: [...this.state.messages, says]});
-            console.log((this.state.messages));
-        });
+        // let says = {
+        //     speaks: 'user',
+        //     icon: iconIndex,
+        //     msg: {
+        //         text: {
+        //             text: text
+        //         }
+        //     }
+        // };
+        // console.log(says);
+        // setTimeout(() => {
+        //     this.setState({messages: [...this.state.messages, says]});
+        //     console.log((this.state.messages));
+        // });
         // const request = {
         //     queryInput: {
         //         text: {
@@ -59,16 +90,15 @@ class ChatBot extends Component {
         //             languageCode: 'en-AU',
         //         },
         //     }
-        // };
+        // }
         const request = {
             text: text,
-            sessionID: session_ID
-
+            sessionID: session_ID,
+            context: this.state.currentContext,
         };
 
         await this.dfClientCall(request);
     };
-
 
     async dfClientCall(request) {
 
@@ -108,11 +138,14 @@ class ChatBot extends Component {
 
         const config = {
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin': '*'
             }
         };
+        console.log('Posting request...', request);
         const res = await axios.post(
-            'https://gobo-api.cfapps.io/v1/ask',
+            // 'https://gobo-api.cfapps.io/v1/ask',
+            'http://localhost:5000/v1/ask',
             request,
             config
         ).catch(err => console.log(err));
@@ -121,7 +154,18 @@ class ChatBot extends Component {
 
         console.log('response from server: ', res);
 
-        if (res.data.text) {
+        if (res.status === 400) {
+            // if context not provided
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: "Please reply a course code."
+                    }
+                }
+            }
+        } else if (res.status === 200) {
+            // if get a good reply
             says = {
                 speaks: 'bot',
                 msg: {
@@ -131,6 +175,7 @@ class ChatBot extends Component {
                 }
             };
         } else {
+            // else, something went wrong
             says = {
                 speaks: 'bot',
                 msg: {
@@ -161,31 +206,58 @@ class ChatBot extends Component {
         //     }
     }
 
-    //cant replace this passMessage just as this.dftextquery
     // because value is not define
     passMessage(value) {
-        this.dfTextQuery(value);
+        let says = {
+            speaks: 'user',
+            icon: iconIndex,
+            msg: {
+                text: {
+                    text: value
+                }
+            }
+        };
+        this.setState({messages: [...this.state.messages, says]});
+        // try to update context
+        if (value === 'comp9021' || value === 'COMP9021') {
+            setTimeout(() => {
+                this.setState({
+                    currentContext: 'comp9021',
+                    messages: [...this.state.messages, DEBUG_REPLY]
+                });
+            }, 2000);
+            return;
+
+        } else if (value === 'comp9311' || value === 'COMP9311') {
+            setTimeout(() => {
+                this.setState({
+                    currentContext: 'comp9311',
+                    messages: [...this.state.messages, DEBUG_REPLY]
+                });
+            }, 2000);
+            return;
+        }
+        // check context
+        if (this.state.currentContext === null && !SUPPORTED_COURSES.includes(value)) {
+            this.setState({messages: [...this.state.messages, says]});
+            setTimeout(() => {
+                this.setState({
+                    messages: [...this.state.messages, DEFAULT_REPLY]
+                });
+            }, 2000);
+        } else {
+            this.dfTextQuery(value);
+        }
     };
-
-
-    randomIcon() {
-        return [Math.floor(Math.random() * 3)];
-    }
-
-    newSessionId() {
-        let value = uuidv4();
-        sessionStorage.setItem('gobo', value);
-        session_ID = value;
-    }
 
     componentWillMount() {
         if (sessionStorage.getItem('gobo')) {
             session_ID = sessionStorage.getItem('gobo');
         } else {
-            this.newSessionId();
+            ChatBot.newSessionId();
         }
 
-        iconIndex = this.randomIcon();
+        iconIndex = ChatBot.randomIcon();
         console.log('session_ID' + session_ID);
     }
 
