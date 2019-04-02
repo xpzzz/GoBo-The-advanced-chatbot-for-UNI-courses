@@ -28,19 +28,20 @@ def list_documents(PROJECT_ID, KID):
     print('Documents for Knowledge Id: {}'.format(KID))
     for document in client.list_documents(knowledge_base_path):
         print(' - Display Name: {}'.format(document.display_name))
-        print(' - document ID: {}'.format(document.name))
+        print(' - document ID: {}'.format(document.name.split("/")[-1]))
         print(' - MIME Type: {}'.format(document.mime_type))
         print(' - Knowledge Types:')
         for knowledge_type in document.knowledge_types:
             print('    - {}'.format(KNOWLEDGE_TYPES[knowledge_type]))
         print(' - Source: {}\n'.format(document.content_uri))
+        print(' - Detail Location: {}'.format(document.name))
 
     #content returned
     document_list = []
     for document in client.list_documents(knowledge_base_path):
         document_dict = dict()
         document_dict["document-name"] = str(document.display_name)
-        document_dict["document-id"] = str(document.name)
+        document_dict["document-id"] = str(document.name.split("/")[-1])
         document_dict["MIME-type"] = str(document.mime_type)
         knowledge_type_list = [KNOWLEDGE_TYPES[i] for i in document.knowledge_types]
         document_dict["Knowledge-type"] = ",".join(knowledge_type_list)
@@ -94,18 +95,19 @@ def create_document(PROJECT_ID, KID, document_name, mime_type,
     document = response.result(timeout=90)
     print('Created Document:')
     print(' - Display Name: {}'.format(document.display_name))
-    print(' - document ID: {}'.format(document.name))
+    print(' - document ID: {}'.format(document.name.split("/")[-1]))
     print(' - MIME Type: {}'.format(document.mime_type))
     print(' - Knowledge Types:')
     for knowledge_type in document.knowledge_types:
         print('    - {}'.format(KNOWLEDGE_TYPES[knowledge_type]))
     print(' - Source: {}\n'.format(document.content_uri))
+    print(' - Detail Location: {}'.format(document.name))
 
     #content returned
     document_dict = dict()
     document_dict["knowledge-base-id"] = str(KID)
     document_dict["document-name"] = str(document.display_name)
-    document_dict["document-id"] = str(document.name)
+    document_dict["document-id"] = str(document.name.split("/")[-1])
     document_dict["MIME-type"] = str(document.mime_type)
     knowledge_type_list = [KNOWLEDGE_TYPES[i] for i in document.knowledge_types]
     document_dict["Knowledge-type"] = ",".join(knowledge_type_list)
@@ -140,18 +142,19 @@ def get_document(PROJECT_ID, KID, DID):
     # testing stout
     print('Got Document:')
     print(' - Display Name: {}'.format(response.display_name))
-    print(' - Knowledge ID: {}'.format(response.name))
+    print(' - Knowledge ID: {}'.format(response.name.split("/")[-1]))
     print(' - MIME Type: {}'.format(response.mime_type))
     print(' - Knowledge Types:')
     for knowledge_type in response.knowledge_types:
         print('    - {}'.format(KNOWLEDGE_TYPES[knowledge_type]))
     print(' - Source: {}\n'.format(response.content_uri))
+    print(' - Detail Location: {}'.format(response.name))
 
     # content returned
     document_dict = dict()
     document_dict["knowledge-base-id"] = str(KID)
     document_dict["document-name"] = str(response.display_name)
-    document_dict["document-id"] = str(response.name)
+    document_dict["document-id"] = str(response.name.split("/")[-1])
     document_dict["MIME-type"] = str(response.mime_type)
     knowledge_type_list = [KNOWLEDGE_TYPES[i] for i in response.knowledge_types]
     document_dict["Knowledge-type"] = ",".join(knowledge_type_list)
@@ -179,5 +182,3 @@ def delete_document(PROJECT_ID, KID, DID):
     print('operation running:\n {}'.format(response.operation))
     print('Waiting for results...')
     print('Done.\n {}'.format(response.result()))
-
-

@@ -21,6 +21,10 @@
     {
       "name": "Document",
       "description": "Access to Document management"
+    },
+    {
+      "name": "Communication",
+      "description": "Access to interact with dialogflow"
     }
   ],
   "paths": {
@@ -46,6 +50,59 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/ask": {
+      "post": {
+        "tags": [
+          "Communication"
+        ],
+        "summary": "Interact with GoBo agent via texts, maintained by session id",
+        "description": "",
+        "operationId": "communicateText",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "payload",
+            "description": "The user to input.",
+            "schema": {
+              "type": "object",
+              "required": [
+                "text",
+                "sessionID",
+                "context"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "sessionID": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TextResponse"
+            }
+          },
+          "400": {
+            "description": "missing essential input value"
           }
         }
       }
@@ -290,6 +347,18 @@
     }
   },
   "definitions": {
+    "TextResponse": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "description": "The response to text input",
+          "type": "string"
+        }
+      }
+    },
     "NewKB": {
       "type": "object",
       "required": [

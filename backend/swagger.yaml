@@ -25,6 +25,8 @@ tags:
   # externalDocs:
   #   description: "Find out more about our store"
   #   url: "http://swagger.io"
+- name: "Communication"
+  description: "Access to interact with dialogflow"
 schemes:
 - "https"
 - "http"
@@ -46,25 +48,65 @@ paths:
               token:
                 type: string
                 description: 'token from server'
+                
+                
+  /ask:
+    post:
+      tags: 
+        - "Communication"
+      summary: "Interact with GoBo agent via texts, maintained by session id"
+      description: ""
+      operationId: "communicateText"
+      consumes: 
+        - "application/json"
+      produces: 
+        - "application/json"
+      parameters: 
+        - in: "body"
+          name: "payload"
+          description: "The user to input."
+          schema:
+            type: object
+            required:
+              - text
+              - sessionID
+              - context
+            properties:
+              text:
+                type: string
+              sessionID:
+                type: string
+              context:
+                type: string
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/TextResponse'
+            
+        400:
+          description: "missing essential input value"
+          
+        
 
 
   /knowledge_base:
     post:
       tags:
-      - "Knowledge Base"
+        - "Knowledge Base"
       summary: "Add a new knowledge base to our agent GoBo"
       description: ""
       operationId: "addKnowledgeBase"
       produces:
       # - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "display name"
-        description: "A new Knowledge Base that needs to be added to GoBo"
-        required: true
-        schema:
-          $ref: "#/definitions/NewKB"
+        - in: "body"
+          name: "display name"
+          description: "A new Knowledge Base that needs to be added to GoBo"
+          required: true
+          schema:
+            $ref: "#/definitions/NewKB"
       responses:
         200:
           description: "The display name has been used. Please try another name to create or use existing one."
@@ -81,13 +123,13 @@ paths:
 
     get:
       tags:
-      - "Knowledge Base"
+        - "Knowledge Base"
       summary: "Get available knowledge bases"
       description: ""
       operationId: "getKnowledgeBase"
       produces:
       # - "application/xml"
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -100,18 +142,18 @@ paths:
   /knowledge_base/{KID}:
     get:
       tags:
-      - "Knowledge Base"
+        - "Knowledge Base"
       summary: "Find all docuement details in a knowledge base by its ID"
       description: "Return all details of a specific knowledge base."
       operationId: "findKnowledgeBaseById"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "KID"
-        in: "path"
-        description: "ID to knowledge base by"
-        required: true
-        type: "string"
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -122,16 +164,16 @@ paths:
         
     delete: 
       tags:
-      - "Knowledge Base"
+        - "Knowledge Base"
       summary: " Delete a knowledge base by its ID"
       description: " Warning! Be carefully, this action can not be recover."
       operationId: "DeleteKnowledgeBaseById"
       parameters:
-      - name: "KID"
-        in: "path"
-        description: "ID to knowledge base by"
-        required: true
-        type: "string"
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK, the knowledgebase has been deleted"
@@ -141,30 +183,26 @@ paths:
   /knowledge_base/{KID}/document:
     post:
       tags:
-      - "Document"
+        - "Document"
       summary: "Add a new document to a specific knowledge base"
       description: ""
       operationId: "addDocument"
       produces:
       # - "application/xml"
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "KID"
-        in: "path"
-        description: "ID to knowledge base by"
-        required: true
-        type: "string"
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
         
-      - in: "body"
-        name: "document detail"
-        description: "A new document that needs to be added to a specific knowledge base"
-        required: true
-        schema:
-          $ref: '#/definitions/DCInfo'
-        
-      
-        
-        
+        - in: "body"
+          name: "document detail"
+          description: "A new document that needs to be added to a specific knowledge base"
+          required: true
+          schema:
+            $ref: '#/definitions/DCInfo'
         
       responses:
         200:
@@ -180,26 +218,26 @@ paths:
   /knowledge_base/{KID}/document/{DID}:          
     get:
       tags:
-      - "Document"
+        - "Document"
       summary: "Find a document info by its name in a specific knowledge base"
       description: ""
       operationId: "getDocument"
       produces:
       # - "application/xml"
-      - "application/json"
+       - "application/json"
       
       parameters:
-      - name: "KID"
-        in: "path"
-        description: "ID to knowledge base by"
-        required: true
-        type: "string"
-        
-      - name: "DID"
-        in: "path"
-        description: "ID to document by"
-        required: true
-        type: "string"
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+          
+        - name: "DID"
+          in: "path"
+          description: "ID to document by"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -210,22 +248,21 @@ paths:
           description: "Invalid KID or DID value"
     delete: 
       tags:
-      - "Document"
+       - "Document"
       summary: " Delete a document by its ID in a specific knowledge base"
       description: " Warning! Be carefully, this action can not be recover."
       operationId: "DeleteDocumentById"
       parameters:
-      - name: "KID"
-        in: "path"
-        description: "ID to knowledge base by"
-        required: true
-        type: "string"
-        
-      - name: "DID"
-        in: "path"
-        description: "ID to document by"
-        required: true
-        type: "string"
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+        - name: "DID"
+          in: "path"
+          description: "ID to document by"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK, the knowledgebase has been deleted"
@@ -240,6 +277,18 @@ paths:
 
 
 definitions:
+  TextResponse:
+    type: "object"
+    required: 
+    - "text"
+    properties:
+      text:
+        description: "The response to text input"
+        type: "string"
+      # confidence:
+      #   description: "The fulfillment detected confidence"
+      #   type: "string"
+
 
   NewKB:
     type: "object"
@@ -345,3 +394,5 @@ definitions:
         description: "The source of the Document."
         type: "string"
         example: "gs://test/test01.csv"
+        
+    
