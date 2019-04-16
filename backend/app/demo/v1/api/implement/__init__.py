@@ -40,5 +40,6 @@ def init_ml():
 
 
 if __name__ == '__main__':
-    app = init_ml()
-    print(app)
+    # app = init_ml()
+    # print(app)
+    pass
