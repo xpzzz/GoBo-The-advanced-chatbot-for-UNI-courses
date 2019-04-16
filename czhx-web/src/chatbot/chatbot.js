@@ -145,8 +145,8 @@ class ChatBot extends Component {
         };
         console.log('Posting request...', request);
         const res = await axios.post(
-            // 'https://gobo-api.cfapps.io/v1/ask',
-            'http://localhost:5000/v1/ask',
+            'https://gobo-api.cfapps.io/v1/ask',
+            // 'http://localhost:5000/v1/ask',
             request,
             config
         ).catch(err => console.log(err));
