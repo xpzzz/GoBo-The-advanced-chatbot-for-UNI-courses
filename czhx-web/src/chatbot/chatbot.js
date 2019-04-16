@@ -223,7 +223,7 @@ class ChatBot extends Component {
         if (value === 'comp9321' || value === 'COMP9321') {
             setTimeout(() => {
                 this.setState({
-                    currentContext: '9321',
+                    currentContext: 'comp9321',
                     messages: [...this.state.messages, DEBUG_REPLY]
                 });
             }, 2000);
@@ -232,7 +232,7 @@ class ChatBot extends Component {
         } else if (value === 'comp9311' || value === 'COMP9311') {
             setTimeout(() => {
                 this.setState({
-                    currentContext: '9311',
+                    currentContext: 'comp9311',
                     messages: [...this.state.messages, DEBUG_REPLY]
                 });
             }, 2000);
