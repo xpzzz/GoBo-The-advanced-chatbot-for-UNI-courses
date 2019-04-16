@@ -16,9 +16,9 @@ from . import init_ml
 
 def testQuery(vocab_path, checkpoint_file, data_path):
 
-    app = init_ml()
+    # app = init_ml()
 
-    FLAGS = app.flags.FLAGS
+    FLAGS = tf.flags.FLAGS
     FLAGS.flag_values_dict()
 
 
