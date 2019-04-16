@@ -2,9 +2,6 @@
 from __future__ import absolute_import
 
 from flask import Flask
-
-
-
 # def create_app():
 from flask_cors import CORS
 

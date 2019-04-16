@@ -1,0 +1,5 @@
+.DS_Store
+.idea
+__pycache__
+stackexchange-api/*.json
+nltk_data
