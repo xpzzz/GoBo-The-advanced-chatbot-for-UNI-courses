@@ -1,17 +1,28 @@
 Week 1
-Group formed. I created the GitHub accounts for the team. Together
-with Tianpeng , Wenxiao , Minjie. I also found and
-discussed with the team all available software tools and libraries that we
-can use for the project. I am going to do the front-end job with Tianpeng.
+Group formed. I created the GitHub accounts for the team. Together with Tianpeng , Wenxiao , Minjie.
+I also found and discussed with the team all available software tools and libraries that we can use for the project.
+I am going to do the front-end job with Tianpeng.
 We discussed what we are going to do and which feature we are going to add.
 
 
-Week2
-Group discussion. My team discussed our proposal. We had a lots of meetings
- to talk about our project. Finally, we decide which epics we are going to do.
-After that , I read the document of DF.
+Week 2
+Group discussion. My team discussed our proposal. We had a lot of meetings to talk about our project.
+Finally, we decide which epics we are going to do.
+After that, I read the document of DF.
 
-Week3
+Week 3
+This week, I design the UI for our bot and start to build the frontend of this project.
+I create the code structure of frontend as 3 parts: Title, Form, MessageList.
+After that, I code the basic UI for our GoBo bot.
 
+Week 4
+This week, I pick up a UI style with acceptable aesthetic and finish the first stage design.
+I change the UI style to a lovely one. Then I finish the Title part.
 
-Week4
+Week 5
+This week, I add some features on the frontend part.
+Such as: finish the Form part, update the Title part and finish the MessageList part.
+
+Week6
+This week, I refine the UI of the frontend.
+Fixed a lot of bugs and then add some feature to connect with the backend.

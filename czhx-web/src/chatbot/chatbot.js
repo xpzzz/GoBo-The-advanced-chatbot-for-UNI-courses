@@ -10,12 +10,12 @@ import {v4 as uuid} from 'uuid';
 const cookies = new Cookies();
 const uuidv4 = require('uuid/v4');
 
-const SUPPORTED_COURSES = ['comp9021', 'COMP9021', 'comp9311', 'COMP9311'];
+const SUPPORTED_COURSES = ['comp9321', 'COMP9321', 'comp9311', 'COMP9311'];
 const DEFAULT_REPLY = {
     speaks: 'bot',
     msg: {
         text: {
-            text: "Please reply a course code."
+            text: "Could you give me the course code which you would like to view ? COMP9311 or COMP9321."
         }
     }
 };
@@ -23,7 +23,8 @@ const DEBUG_REPLY = {
     speaks: 'bot',
     msg: {
         text: {
-            text: "[DEBUG] Context updated!"
+            text:"Thanks! I am going to hack in this course~(You could also type a new course code to change the course~)"
+            // text: "[DEBUG] Context updated!"
         }
     }
 };
@@ -42,7 +43,7 @@ class ChatBot extends Component {
                     speaks: 'bot',
                     msg: {
                         text: {
-                            text: "Hello~ I'm GoBo~"
+                            text: "Hello~ I'm GoBo~ I could help you find some information about COMP9311 and COMP9321. Dude~"
                         }
                     }
                 }],
@@ -144,8 +145,8 @@ class ChatBot extends Component {
         };
         console.log('Posting request...', request);
         const res = await axios.post(
-            'https://gobo-api.cfapps.io/v1/ask',
-            // 'http://localhost:5000/v1/ask',
+            // 'https://gobo-api.cfapps.io/v1/ask',
+            'http://localhost:5000/v1/ask',
             request,
             config
         ).catch(err => console.log(err));
@@ -160,7 +161,7 @@ class ChatBot extends Component {
                 speaks: 'bot',
                 msg: {
                     text: {
-                        text: "Please reply a course code."
+                        text: "Could you give me the course code which you would like to view ? COMP9311 or COMP9321.(You could also type a new course code to change the course~)"
                     }
                 }
             }
@@ -219,10 +220,10 @@ class ChatBot extends Component {
         };
         this.setState({messages: [...this.state.messages, says]});
         // try to update context
-        if (value === 'comp9021' || value === 'COMP9021') {
+        if (value === 'comp9321' || value === 'COMP9321') {
             setTimeout(() => {
                 this.setState({
-                    currentContext: 'comp9021',
+                    currentContext: '9321',
                     messages: [...this.state.messages, DEBUG_REPLY]
                 });
             }, 2000);
@@ -231,7 +232,7 @@ class ChatBot extends Component {
         } else if (value === 'comp9311' || value === 'COMP9311') {
             setTimeout(() => {
                 this.setState({
-                    currentContext: 'comp9311',
+                    currentContext: '9311',
                     messages: [...this.state.messages, DEBUG_REPLY]
                 });
             }, 2000);
