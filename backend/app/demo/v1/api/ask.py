@@ -4,6 +4,7 @@ from __future__ import absolute_import, print_function
 import os
 
 from flask import g, make_response, jsonify, session
+
 from . import Resource
 from .implement import bot_manager
 

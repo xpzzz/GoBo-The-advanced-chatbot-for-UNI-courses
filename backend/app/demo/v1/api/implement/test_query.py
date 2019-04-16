@@ -28,6 +28,9 @@ def testQuery(vocab_path, checkpoint_file, data_path):
             y_test = np.argmax(y_test, axis=1)
     except AttributeError:
         init_ml()
+    finally:
+        x_raw, y_test = data_helpers.load_data_and_labels(FLAGS.testF_data_file, FLAGS.testP_data_file)
+        y_test = np.argmax(y_test, axis=1)
 
     # Map data into vocabulary
 
