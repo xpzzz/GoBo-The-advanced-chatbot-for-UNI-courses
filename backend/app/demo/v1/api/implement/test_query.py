@@ -15,18 +15,19 @@ from . import init_ml
 
 
 def testQuery(vocab_path, checkpoint_file, data_path):
-
     # app = init_ml()
 
     FLAGS = tf.flags.FLAGS
     FLAGS.flag_values_dict()
 
-
     # CHANGE THIS: Load data. Load your own data here
-    if FLAGS.eval_train:
-    # if True:
-        x_raw, y_test = data_helpers.load_data_and_labels(FLAGS.testF_data_file, FLAGS.testP_data_file)
-        y_test = np.argmax(y_test, axis=1)
+    try:
+        if FLAGS.eval_train:
+        # if True:
+            x_raw, y_test = data_helpers.load_data_and_labels(FLAGS.testF_data_file, FLAGS.testP_data_file)
+            y_test = np.argmax(y_test, axis=1)
+    except AttributeError:
+        init_ml()
 
     # Map data into vocabulary
 
