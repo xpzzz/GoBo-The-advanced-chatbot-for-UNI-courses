@@ -5,12 +5,11 @@ import os
 
 import gensim
 
-kb_questions = dict()
-kb_answers = dict()
-kb_originals = dict()
 # initialise word2vec model for forum and lecuture content
 
 from os.path import dirname
+
+from app.demo.v1.api.implement import kb_originals, kb_answers, kb_questions
 
 _root = dirname(__file__)
 
@@ -29,7 +28,6 @@ def init_dict(course_code, doc_type, save=False):
                 orig = data['question']
                 kb_originals[course_code][doc_type].append(orig)
 
-
     with open('{}/data/{}_{}.json'.format(_root, course_code, doc_type))as f:
         print('[DEBUG word2vec] Initialising in memory dict')
         lines = f.readlines()
@@ -38,7 +36,6 @@ def init_dict(course_code, doc_type, save=False):
         kb_questions[course_code][doc_type] = list()
         kb_answers[course_code] = dict()
         kb_answers[course_code][doc_type] = list()
-
 
         for line in lines:
             # from pprint import pprint
@@ -65,7 +62,7 @@ def init_dict(course_code, doc_type, save=False):
 
 def init_W2Vmodel(course_code, doc_type):
     #
-    global keywords_forum, keywords_content, answers_forum, answers_content, kb_questions, kb_answers
+    global keywords_forum, keywords_content, answers_forum, answers_content
     exists = os.path.isfile('{}/model/W2V_{}_{}.model'.format(_root, course_code, doc_type))
     if not exists:
         init_dict(course_code, doc_type, save=True)

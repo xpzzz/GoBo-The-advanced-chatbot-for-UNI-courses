@@ -2,12 +2,22 @@ import nltk
 from os.path import dirname
 import tensorflow as tf
 
+kb_questions = dict()
+kb_answers = dict()
+kb_originals = dict()
+
 
 def init_ml():
+    global kb_questions, kb_answers, kb_originals
+    if not (kb_questions and kb_answers and kb_originals):
+        kb_questions = dict()
+        kb_answers = dict()
+        kb_originals = dict()
     app = tf.app
     print('initialising ml module...')
     dest = dirname(__file__) + '/nltk_data/'
     nltk.download('punkt', download_dir=dest)
+    nltk.download('stopwords', download_dir=dest)
     nltk.data.path.append(dest)
 
     data_path = dirname(__file__) + '/data/'

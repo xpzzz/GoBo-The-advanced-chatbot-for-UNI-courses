@@ -9,7 +9,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.contrib import learn
 
-from . import data_helpers
+from . import data_helpers, init_ml
 from .text_cnn import TextCNN
 
 

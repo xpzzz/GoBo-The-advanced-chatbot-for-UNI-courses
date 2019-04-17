@@ -6,7 +6,8 @@ from pprint import pprint
 from . import detect_intent_via_text as di
 # from .preprocess import preData
 from .cnn import cnn
-from .word2vec import init_W2Vmodel, most_similarity, kb_questions, kb_answers, kb_originals
+from .word2vec import init_W2Vmodel, most_similarity
+from . import kb_questions, kb_answers, kb_originals
 from .preprocess import preData
 # config threshold here
 THRESHOLD = 0.7
