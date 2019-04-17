@@ -11,7 +11,6 @@ from tensorflow.contrib import learn
 
 from . import data_helpers
 from .text_cnn import TextCNN
-from . import init_ml
 
 
 def testQuery(vocab_path, checkpoint_file, data_path):
