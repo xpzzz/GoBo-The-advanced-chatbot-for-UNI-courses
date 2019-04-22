@@ -12,6 +12,7 @@ class MessageItem extends Component {
     };
 
     render() {
+        console.log(this.props.data.flag);
         return (
             <Row >
                 <Col span={2} pull={1}>
@@ -25,6 +26,13 @@ class MessageItem extends Component {
                 <Col span={20} style={messageStyle}>
                     <span className="black-text" >
                         {this.props.data.msg.text.text}
+                        {this.props.data.flag ==1 &&
+                        <div><br/>
+                            <p>It has been replied, you can find it through <a href={this.props.data.msg.text.url}>thisLink</a></p>
+                            </div>
+
+                        }
+
                       </span>
                 </Col>
                 <Col span={2}>

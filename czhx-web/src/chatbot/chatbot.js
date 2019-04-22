@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
 import Title from './components/title';
-import {Layout} from 'antd';
+import {Col, Layout, Row} from 'antd';
 import MessageList from './components/messageList';
 import Form from './components/form';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import {v4 as uuid} from 'uuid';
+import { Typography, Divider } from 'antd';
 
+const {  Paragraph, Text } = Typography;
+const {
+    Header, Footer
+} = Layout;
 const cookies = new Cookies();
 const uuidv4 = require('uuid/v4');
 
@@ -17,16 +22,18 @@ const DEFAULT_REPLY = {
         text: {
             text: "Could you give me the course code which you would like to view ? COMP9311 or COMP9321."
         }
-    }
+    },
+    flag:0,
 };
 const DEBUG_REPLY = {
     speaks: 'bot',
     msg: {
         text: {
-            text:"Thanks! I am going to hack in this course~(You could also type a new course code to change the course~)"
+            text: "Thanks! I am going to hack in this course~(You could also type a new course code to change the course~)"
             // text: "[DEBUG] Context updated!"
         }
-    }
+    },
+    flag:0,
 };
 
 class ChatBot extends Component {
@@ -45,7 +52,8 @@ class ChatBot extends Component {
                         text: {
                             text: "Hello~ I'm GoBo~ I could help you find some information about COMP9311 and COMP9321. Dude~"
                         }
-                    }
+                    },
+                    flag:0,
                 }],
             showWelcomeSent: false,
             clientToken: false,
@@ -163,18 +171,48 @@ class ChatBot extends Component {
                     text: {
                         text: "Could you give me the course code which you would like to view ? COMP9311 or COMP9321.(You could also type a new course code to change the course~)"
                     }
-                }
+                },
+                flag:0,
             }
         } else if (res.status === 200) {
             // if get a good reply
-            says = {
-                speaks: 'bot',
-                msg: {
-                    text: {
-                        text: res.data.text,
-                    }
-                }
-            };
+            // console.log(res.data.flag);
+            // console.log(res.data.text);
+            var newUrl;
+            var newflag;
+            if (res.data.flag == 'forum'){
+                var re=/(https:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*)/g;
+                newUrl=res.data.text.replace(re,function(a,b,c){return '<a href="http://'+c+'">thisLink</a>';}).replace(' before you post again.','').replace('and it has been replied, you can find it through ','');
+                var textlist=newUrl.split("<a");
+                var url=textlist[1].split('"');
+                // console.log(newUrl);
+                // console.log(textlist);
+                console.log(url[1]);
+                newflag=1;
+
+                says = {
+                    speaks: 'bot',
+                    msg: {
+                        text: {
+                            text: textlist[0],
+                            url:url[1],
+                        }
+                    },
+                    flag: newflag,
+                };
+            }else {
+                newflag=0;
+                says = {
+                    speaks: 'bot',
+                    msg: {
+                        text: {
+                            text: res.data.text,
+                        }
+                    },
+                    flag: newflag,
+                };
+            }
+
         } else {
             // else, something went wrong
             says = {
@@ -183,7 +221,8 @@ class ChatBot extends Component {
                     text: {
                         text: 'I\'m having issues, please wait for a moment or contact my admin',
                     }
-                }
+                },
+                flag:0,
             }
         }
         console.log('updating says: ', says);
@@ -216,7 +255,8 @@ class ChatBot extends Component {
                 text: {
                     text: value
                 }
-            }
+            },
+            flag:0,
         };
         this.setState({messages: [...this.state.messages, says]});
         // try to update context
@@ -265,10 +305,38 @@ class ChatBot extends Component {
     render() {
         return (
             <div>
-                <Layout className="layout" style={styles}>
-                    <Title/>
-                    <MessageList data={this.state.messages}/>
-                    <Form passMessage={this.passMessage}/>
+                <Layout style={layout_style}>
+                    <Header style={header_style}>GoBoAI ChatBot</Header>
+                    <Layout style={content_style}>
+                        <Row>
+                            <Col span={16}>
+                                <Typography style={text_style}>
+                                    <h1>Introduction</h1>
+                                    <Paragraph>
+                                        The GoBo AI is a functional chatbot, which provides a platform for UNSW CSE current or future students to have better understanding with the courses they would like to know, in both courses information and courses related knowledge. Users are free to ask anything related to the courses and the chatbot should return knowledge based on the relevant courses.
+                                     </Paragraph>
+                                    <h1>Team</h1>
+                                    <Paragraph>
+                                        <ul>
+                                            <li><a href="#">Tianpeng Chen: DevOps Developer </a></li>
+                                            <li><a href="#">Yifan Zhao: Frontend Developer & ML engineer</a></li>
+                                            <li><a href="#">Wenxiao Xu: Backend Developer</a></li>
+                                            <li><a href="#">Minjie Huang: Scrum Master & Backend Developer</a></li>
+                                        </ul>
+                                    </Paragraph>
+                                    <Divider />
+                                </Typography>,
+                            </Col>
+                            <Col span={8}>
+                                <Layout className="layout" style={styles}>
+                                    <Title/>
+                                    <MessageList data={this.state.messages} />
+                                    <Form passMessage={this.passMessage}/>
+                                </Layout>
+                            </Col>
+                        </Row>
+                    </Layout>
+                    <Footer style={footer_style}>&copy;2019&nbsp;CZHX</Footer>
                 </Layout>
             </div>
 
@@ -283,7 +351,36 @@ let session_ID = 0;
 const styles = {
     width: '320px',
     height: '480px',
+    margin:'40px',
+    // border: '1px solid black'
 
 
+};
+const layout_style = {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    top: '0px',
+    bottom: '0px',
+    textAlign:'center',
+};
+
+const header_style={
+    backgroundColor: '#f4eaf5',
+};
+
+const footer_style={
+    backgroundColor: '#f4eaf5',
+};
+
+const text_style={
+    margin:'40px',
+    height: '480px',
+    // border: '1px solid black',
+    textAlign: 'left',
+    fontSize:'23px',
+};
+const content_style={
+    backgroundColor: '#fff',
 };
 export default ChatBot;
