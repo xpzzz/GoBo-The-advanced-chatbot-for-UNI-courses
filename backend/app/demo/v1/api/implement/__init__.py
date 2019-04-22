@@ -45,7 +45,7 @@ def init_ml():
     app.flags.DEFINE_integer("b", 4, 'Server Address')
     app.flags.DEFINE_integer("t", 4, 'Server Timeout')
 
-    print(tf.flags.FLAGS)
+    # print(tf.flags.FLAGS)
     return app
 
 
