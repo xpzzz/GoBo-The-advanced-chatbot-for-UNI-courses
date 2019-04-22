@@ -14,7 +14,7 @@ class MessageItem extends Component {
     render() {
         console.log(this.props.data.flag);
         return (
-            <Row >
+            <Row>
                 <Col span={2} pull={1}>
                     {this.props.data.speaks === 'bot' &&
                     <div>
@@ -24,12 +24,13 @@ class MessageItem extends Component {
                     }
                 </Col>
                 <Col span={20} style={messageStyle}>
-                    <span className="black-text" >
+                    <span className="black-text">
                         {this.props.data.msg.text.text}
-                        {this.props.data.flag ==1 &&
+                        {this.props.data.flag === 1 &&
                         <div><br/>
-                            <p>It has been replied, you can find it through <a href={this.props.data.msg.text.url}>thisLink</a></p>
-                            </div>
+                            <p>It has been replied, you can find it through <a
+                                href={this.props.data.msg.text.url}>thisLink</a></p>
+                        </div>
 
                         }
 
@@ -50,19 +51,20 @@ class MessageItem extends Component {
         )
     }
 }
-const userIcon=[
+
+const userIcon = [
     'https://d24h4out7wreu3.cloudfront.net/product_images/p/697138.f56.61774S7ay1Cm2MjUAAA-650x650-b-p.jpg',
     'https://images-na.ssl-images-amazon.com/images/I/51O6wRTcBSL._SX425_.jpg',
     'https://as2.ftcdn.net/jpg/01/80/58/43/500_F_180584318_kcRpImU2nfJqasP8PrOZayGURuKMIbit.jpg'
 
 ];
-const messageStyle={
-    position:'relative',
-    border:'1px solid #989898',
-    borderRadius:'5px',
-    background:'#fff',
-    padding:'5px 8px',
-    margin:'1px auto',
+const messageStyle = {
+    position: 'relative',
+    border: '1px solid #989898',
+    borderRadius: '5px',
+    background: '#fff',
+    padding: '5px 8px',
+    margin: '1px auto',
 };
 
 export default MessageItem;
