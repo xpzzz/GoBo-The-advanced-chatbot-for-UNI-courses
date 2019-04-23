@@ -1,0 +1,416 @@
+swagger: "2.0"
+info:
+  description: "This is a test server to construct GoBo Knowledge base."
+  version: "0.0.1-beta"
+  title: "GoBo Service"
+  # termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "shawn243343@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    
+host: "localhost"
+basePath: "/v1"
+tags:
+- name: "Knowledge Base"
+  description: "Access to the Knowledge Base management."
+  # externalDocs:
+  #   description: "Find out more"
+  #   url: "http://swagger.io"
+- name: "Document"
+  description: "Access to Document management"
+# - name: "user"
+#   description: "Operations about user"
+  # externalDocs:
+  #   description: "Find out more about our store"
+  #   url: "http://swagger.io"
+- name: "Communication"
+  description: "Access to interact with dialogflow"
+schemes:
+- "https"
+- "http"
+paths:
+  /auth:
+    get:
+      tags:
+        - 'Access Token'
+      summary: 'Get an access token to communicate with df'
+      description: ''
+      produces:
+      - 'application/json'
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                description: 'token from server'
+                
+  /welcome:
+    get:
+      tags:
+        - 'Communication'
+      summary: 'Trigger welcome event'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/TextResponse'
+
+                
+  /ask:
+    post:
+      tags: 
+        - "Communication"
+      summary: "Interact with GoBo agent via texts, maintained by session id"
+      description: ""
+      operationId: "communicateText"
+      consumes: 
+        - "application/json"
+      produces: 
+        - "application/json"
+      parameters: 
+        - in: "body"
+          name: "payload"
+          description: "The user to input."
+          schema:
+            type: object
+            required:
+              - text
+              - sessionID
+              - context
+            properties:
+              text:
+                type: string
+              sessionID:
+                type: string
+              context:
+                type: string
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/TextResponse'
+            
+        400:
+          description: "missing essential input value"
+          
+        
+
+
+  /knowledge_base:
+    post:
+      tags:
+        - "Knowledge Base"
+      summary: "Add a new knowledge base to our agent GoBo"
+      description: ""
+      operationId: "addKnowledgeBase"
+      produces:
+      # - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "display name"
+          description: "A new Knowledge Base that needs to be added to GoBo"
+          required: true
+          schema:
+            $ref: "#/definitions/NewKB"
+      responses:
+        200:
+          description: "The display name has been used. Please try another name to create or use existing one."
+          schema:
+            $ref: "#/definitions/KBInfo"
+          
+        201:
+          description: "New knowledge base has been created. Go to Document Management to add training samples."
+          schema:
+            $ref: "#/definitions/KBInfo"
+        400:
+          description: "Invalid input"
+
+
+    get:
+      tags:
+        - "Knowledge Base"
+      summary: "Get available knowledge bases"
+      description: ""
+      operationId: "getKnowledgeBase"
+      produces:
+      # - "application/xml"
+        - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/KBInfo"
+
+      
+  /knowledge_base/{KID}:
+    get:
+      tags:
+        - "Knowledge Base"
+      summary: "Find all docuement details in a knowledge base by its ID"
+      description: "Return all details of a specific knowledge base."
+      operationId: "findKnowledgeBaseById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/KBDetail"
+        400:
+          description: "Invalid KID value"
+        
+    delete: 
+      tags:
+        - "Knowledge Base"
+      summary: " Delete a knowledge base by its ID"
+      description: " Warning! Be carefully, this action can not be recover."
+      operationId: "DeleteKnowledgeBaseById"
+      parameters:
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK, the knowledgebase has been deleted"
+        400:
+          description: "Invalid KID value"
+
+  /knowledge_base/{KID}/document:
+    post:
+      tags:
+        - "Document"
+      summary: "Add a new document to a specific knowledge base"
+      description: ""
+      operationId: "addDocument"
+      produces:
+      # - "application/xml"
+        - "application/json"
+      parameters:
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+        
+        - in: "body"
+          name: "document detail"
+          description: "A new document that needs to be added to a specific knowledge base"
+          required: true
+          schema:
+            $ref: '#/definitions/DCInfo'
+        
+      responses:
+        200:
+          description: "The display name has been used. Please try another name."
+          schema:
+            $ref: "#/definitions/DCDetail"
+        201:
+          description: "New Document base has been created."
+          
+        400:
+          description: "Invalid input" 
+          
+  /knowledge_base/{KID}/document/{DID}:          
+    get:
+      tags:
+        - "Document"
+      summary: "Find a document info by its name in a specific knowledge base"
+      description: ""
+      operationId: "getDocument"
+      produces:
+      # - "application/xml"
+       - "application/json"
+      
+      parameters:
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+          
+        - name: "DID"
+          in: "path"
+          description: "ID to document by"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+              $ref: "#/definitions/DCDetail"
+              
+        400:
+          description: "Invalid KID or DID value"
+    delete: 
+      tags:
+       - "Document"
+      summary: " Delete a document by its ID in a specific knowledge base"
+      description: " Warning! Be carefully, this action can not be recover."
+      operationId: "DeleteDocumentById"
+      parameters:
+        - name: "KID"
+          in: "path"
+          description: "ID to knowledge base by"
+          required: true
+          type: "string"
+        - name: "DID"
+          in: "path"
+          description: "ID to document by"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK, the knowledgebase has been deleted"
+        400:
+          description: "Invalid KID  or DID value"
+        
+
+
+
+
+
+
+
+definitions:
+  TextResponse:
+    type: "object"
+    required: 
+    - "text"
+    - "flag"
+    properties:
+      text:
+        description: "The response to text input"
+        type: "string"
+      flag:
+        description: "response source"
+        type: "string"
+      # confidence:
+      #   description: "The fulfillment detected confidence"
+      #   type: "string"
+
+
+  NewKB:
+    type: "object"
+    required:
+    - "display-name"
+    properties:
+      display-name:
+        description: "The display name of knowledge base"
+        type: "string"
+        example: "comp9021"
+        
+  KBInfo:
+    type: "object"
+    required: 
+    - "id"
+    - "display-name"
+    - "document-amount"
+    properties:
+      id:
+        description: "The ID of knowledge base generated by service"
+        type: "string"
+      display-name:
+        description: "The display name of knowledge base"
+        type: "string"
+      document-amount:
+        description: "The document amount of the knowledge base"
+        type: "integer"
+        format: "int32"
+        
+  KBDetail:
+    type: "object"
+    required: 
+    - "id"
+    - "knowledge-base-name"
+    - "document-amount"
+    properties:
+      id:
+        description: "The ID of knowledge base generated by service"
+        type: "string"
+      knowledge-base-name:
+        description: "The display name of knowledge base"
+        type: "string"
+      document-amount:
+        description: "The document amount of the knowledge base"
+        type: "integer"
+        format: "int32"
+      documents:
+        type: "array"
+        items:
+            $ref: "#/definitions/DCInfo"
+        
+      
+      
+  DCInfo:
+    type: "object"
+    properties:
+      document-name:
+        description: "The display name of the Document"
+        type: "string"
+        example: "stackoverflow"
+      MIME-type:
+        description: "The mime type of the Document. e.g. text/csv, text/htm ,text/plain, text/pdf etc."
+        type: "string"
+        example: "text/csv"
+      Knowledge-type:
+        description: "The Knowledge type of the Document. e.g. FAQ ,EXTRACTIVE_QA."
+        type: "string"
+        example: "FAQ"
+      content_uri:
+        description: "The source of the Document."
+        type: "string"
+        example: "gs://test/test01.csv"
+        
+        
+  DCDetail:
+    type: "object"
+    required:
+    - "knowledge-base-id"
+    - "display-name"
+    - "MIME-type"
+    - "Knowledge-type"
+    - "content-uri"
+    properties:
+      knowledge_base_id:
+        description: "The id of knowledge base that you want to add document into"
+        type: "string"
+        example: "this could be searched from knowledge base management"
+      display-name:
+        description: "The display name of document"
+        type: "string"
+        example: "stackoverflow"
+      MIME-type:
+        description: "The mime type of the Document. e.g. text/csv, text/htm ,text/plain, text/pdf etc."
+        type: "string"
+        # allowableValues: 
+        # - "text/plain"
+        example: "text/csv"
+      Knowledge-type:
+        description: "The Knowledge type of the Document. e.g. FAQ ,EXTRACTIVE_QA."
+        type: "string"
+        example: "FAQ"
+      content_uri:
+        description: "The source of the Document."
+        type: "string"
+        example: "gs://test/test01.csv"
+        
+    

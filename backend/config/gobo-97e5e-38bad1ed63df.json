@@ -1,0 +1,15 @@
+{
+  "type": "service_account",
+  "project_id": "gobo-97e5e",
+  "private_key_id": "38bad1ed63df2ea13fd8974922efa9e953634fc3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDFLgYRrFm7D8st\nPUNmWPC/NXT4Oa5noyl8ERT7Le9UEujxX8397iycuuUGc3ZCAXwzPOtxIBGgv465\nEdP1Z5TWCvWMoH42Y+u6jlcrlokYKE0mRz7YO9eQ8b1TMKh61Y00PVTWDObdf63K\nbyKHpz+Sn92sAnbf8ZC6QAkKzAwJvOJtpdDYSGftTipJWkEYq+V+qHGjQy351YRq\nTgUXsIlIcAT+NGSiTbthERMSqpVjmsaDDKXpFtlKS9vpOtUs8VESSRORk1YRg7Kt\nhosO6SNiyGFpus1vcP4FxGzyJy2RnZfcMbhLjIn3nOuGisa/I6UugF2+WY9mGpjl\nZ2oZLikTAgMBAAECggEABCJpvyoe0YohvPzuslvaucT8WGNr5uwSvRwQlWRfrc1z\nCUifJZwTtGTuKMX4AfyiUY1inxhzNix+E3RZE5QMmLZZyA0/cugtHlgeDMxsayTB\nMAnIurj6f/q0TmUT9fYPWWaQe6fWmWi0HgKu4IBJwsshAe/P9UnNOpKIKKv28/yd\nQZSL9zSDgdAKtDrvG9moXLmzFvmkoAwfHkFAwivBQ9D/opIzZW6Pll3OtkpVQxEn\nHVrP/zd5sNM8AslhyQ86kpBObW4XXOt1R9Zy5vnt8Kggd9SYEZYaKb8g43w/ybjD\nOaCDVZC+tFKehbCw9PsluGaHY+oh9d1F2OkwRMiOSQKBgQD9v94lYOUSxpzcAA55\n2Br1/zXz2k665rBHbKhwUr2Kh+i+Z+EtZqQcELgdGrhMVecZtg/NoztfI3aJ/5PH\n1YZH1AE2byczijdk36ySPjtuGXY3TwnakFAfNB6ow9/eq+118AA/665+gSJMl5Ck\nX6Im1bSiwg7L5k2HkgvDgd3qGQKBgQDG7bc8ex4ljdwWoGzYNtRFxipmD9vXBHmx\nKyhjej4Vd3ucPR7Xi8b9v24HToi1ZwvKJAgsoL5G9TMebekkbABDv1fq+Ck7Rcll\nATned+jPaej6U99DAb9UZinLBXxCFFB65iAXBVgsPPJgCE3wgdOknxtRNjHC6OvE\nUhQMj8UqCwKBgQDqjoUmQB7/8B/nLRY0gxLI+hRBSTclhUDFhSdeTN1wRJlcCGIZ\nuZtRZhMKtDxQM8ff+G87QvwKwZk9jsZoHnR1yP8l9jFibw0tbaTzuhrtdxPTpHgT\nVPr7HQ6KKiWyi3KBZkyUyaMOxQeTjTbi+pPFGh5TpNZQnJ5mBxZgrpcXYQKBgQCE\nmY5LtXGp7L6pInSLRzkF7Yrzj1ymHeiULUV10dUyb/uocKFvYk/ZctH/8txztuWH\n7663OMq899MEVJVU3tzqS9Bp4tNxHBqbxk5xuZIpN9rBikjHHJIRyyvOlbB3R51B\n3sXDMp/MlS+mzcJOL+wIzrnhz3MqDiKiMWgF24u8cwKBgQDfnE0MMAve6JWkowur\n19ZqzusJSE0kipOHSEJUzD09Edz6t7NCRcIlCM0zhKANoOdRCr5wX7mhbz0/FL7c\nCSPMgtgmJ1JtYFqgwAcKLpON++u8/GrcFCWBcjYWFlHojEOL0YQKReMwPMCqY3Kv\nNgPyGKLWNi3Bia6OOY1swMLg7w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "dialogflow-ngjie@gobo-97e5e.iam.gserviceaccount.com",
+  "client_id": "105624653578947238970",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-ngjie%40gobo-97e5e.iam.gserviceaccount.com",
+  "secret_key":"f3cfe9ed8fae309f02079dbf"
+}
+
+

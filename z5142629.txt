@@ -9,3 +9,17 @@ Group formed. I linked GitHub accounts with zID in classroom and joined into the
 
 ###week2
 I got involved in the discussion of epics of the project. I figured out the workflow of dialogflow and assisted our master with the proprosal. I learned how to use dialogflow to create an chatbot agent and use python to call its api. I will continue to learn how to apply it to our project.
+
+
+###week3
+The object course has been decided. I assisted scrum master with proposal and gave own advice to revise it. I created our initial agent on dialogflow and took the test to construst its response rule.I continue reading the documents and api instruction of Dialogflow and tried to communicate with Dialogflow by python.
+
+
+###week4
+I wrote the yaml file with swagger and used swagger-codegen to construct the framework of backend api. And wrote document_implement and knowledge base_implement as tools for managing the knowledge base content on Dialogflow. Together with teammate, we figured out the authurisation method used to get jwt token for frontend. 
+
+###week5
+We changed the workflow and decided to use backend to communicate with dialogflow so that I migrated the communication part to backend and constructed the corresponding functions to take parameters from and get dialogflow's responses back to frontend. I rewrote the swagger file and refined the df implement file. 
+
+###week6
+I refined the interacting logic in the function by keeping course name as the context in order to promise the better understanding of user's utterance and read more documents about how to improve the performance of DF.
