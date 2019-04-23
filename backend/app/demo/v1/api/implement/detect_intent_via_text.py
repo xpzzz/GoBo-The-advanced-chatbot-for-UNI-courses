@@ -49,4 +49,7 @@ def detect_intent_texts(PROJECT_ID, session_id, texts, context_id, language_code
     list_contexts(PROJECT_ID, session_id)
     
     text_resp = str(response.query_result.fulfillment_text)
-    return {'text': text_resp}
+    query_text = str(response.query_result.query_text)
+    confidence = response.query_result.intent_detection_confidence
+    detected_intent =response.query_result.intent.display_name,
+    return {'text': text_resp, "confidence": confidence, "query_text":query_text, "detected_intent":detected_intent}

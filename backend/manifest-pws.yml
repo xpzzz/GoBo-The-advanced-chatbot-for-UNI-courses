@@ -2,5 +2,8 @@
 applications:
   - name: gobo-api
     path: .
-    instances: 1
-    memory: 192M
+    instances: 2
+    memory: 768M
+    command: gunicorn run:app
+    buildpacks:
+      - python_buildpack

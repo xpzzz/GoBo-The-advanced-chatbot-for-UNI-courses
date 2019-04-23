@@ -1,0 +1,1 @@
+Relationship Sets:collection of relationships of the same type.

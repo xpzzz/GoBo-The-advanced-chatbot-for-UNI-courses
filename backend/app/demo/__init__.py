@@ -2,9 +2,6 @@
 from __future__ import absolute_import
 
 from flask import Flask
-
-
-
 # def create_app():
 from flask_cors import CORS
 
@@ -19,7 +16,7 @@ app.register_blueprint(
     # return app
 cors = CORS(app)
 
-# app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = 'f3cfe9ed8fae309f02079dbf'
 
 if __name__ == '__main__':

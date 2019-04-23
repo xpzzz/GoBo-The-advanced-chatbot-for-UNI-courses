@@ -54,6 +54,26 @@
         }
       }
     },
+    "/welcome": {
+      "get": {
+        "tags": [
+          "Communication"
+        ],
+        "summary": "Trigger welcome event",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TextResponse"
+            }
+          }
+        }
+      }
+    },
     "/ask": {
       "post": {
         "tags": [
@@ -350,11 +370,16 @@
     "TextResponse": {
       "type": "object",
       "required": [
-        "text"
+        "text",
+        "flag"
       ],
       "properties": {
         "text": {
           "description": "The response to text input",
+          "type": "string"
+        },
+        "flag": {
+          "description": "response source",
           "type": "string"
         }
       }

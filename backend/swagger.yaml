@@ -49,6 +49,20 @@ paths:
                 type: string
                 description: 'token from server'
                 
+  /welcome:
+    get:
+      tags:
+        - 'Communication'
+      summary: 'Trigger welcome event'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/TextResponse'
+
                 
   /ask:
     post:
@@ -281,9 +295,13 @@ definitions:
     type: "object"
     required: 
     - "text"
+    - "flag"
     properties:
       text:
         description: "The response to text input"
+        type: "string"
+      flag:
+        description: "response source"
         type: "string"
       # confidence:
       #   description: "The fulfillment detected confidence"
