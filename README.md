@@ -9,7 +9,7 @@ GoBo is a web-based student life assistant, which creates a more enjoyable livin
 # Deployment Instruction
 
 ## CircleCI
-We have configured workflow on CircleCI. To deploy our applications, just make a simple commit to this branch, or click the CI status badge above to access the Circle dashboard.
+We have configured workflows on CircleCI. To deploy our applications, just make a simple commit to this branch, or click the CI status badge above to access the Circle dashboard and rerun the workflow manually.
 
 ## Manual Deployment
 
