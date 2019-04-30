@@ -29,7 +29,7 @@ class MessageItem extends Component {
                         {this.props.data.flag === 1 &&
                         <div><br/>
                             <p>It has been replied, you can find it through <a
-                                href={this.props.data.msg.text.url}>thisLink</a></p>
+                                href={this.props.data.msg.text.url}>this link</a></p>
                         </div>
 
                         }
