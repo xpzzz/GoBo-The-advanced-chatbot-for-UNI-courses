@@ -32,7 +32,7 @@ $ cf login cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $
 ```
 Then you can push the application with the config file `manifest.yml`.
 ```
-$ cf push -f manifest.yml && cf logout
+$ cf push -f manifest-pws.yml && cf logout
 ```
 
 ### Backend
@@ -49,5 +49,5 @@ $ cf login cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $
 ```
 Then you can push the application with the config file `manifest.yml`.
 ```
-$ cf push -f manifest.yml && cf logout
+$ cf push -f manifest-pws.yml && cf logout
 ```
