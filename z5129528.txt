@@ -38,10 +38,10 @@ Structure another knowledge base. Adding multiple FAQ sources for COMP9021. Chan
 The idea of adding another machine learning module still stays unsolved after 2 meetings. Keeping pushing the frontend UI, scrapping data from lecture notes.
 
 ## week 8
-Helping structuring machine learning module with teammates. Scrapping more data from both lecture notes and given data by lecturer. A lot of data cleaning work. Handed the data to teammates and let them finish the machine learning training.
+Help structuring machine learning module with teammates since the idea is set. Scrapping more data from both lecture notes and given data by lecturer. A lot of data cleaning work. Hand the data to teammates and let them finish the machine learning training.
 
 ## week 9
-Prepared for the presenatation/demo. Created and refined some user scenarios that can be used on the presentation. Tons of Debugging.
+Prepare for the presenatation/demo. Create and refine some user scenarios that can be used on the presentation. Tons of Debugging.
 
 ## week 10
 Finish the report.
