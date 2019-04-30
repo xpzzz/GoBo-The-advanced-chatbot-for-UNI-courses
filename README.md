@@ -25,7 +25,9 @@ $ cd czhx-web
 $ yarn && yarn test && yarn build
 ```
 2. Deploy
+
 First login to CloudFoundry.
+
 Note the login credentials are configured as environment variables on CircleCI, you can find them through this link: https://circleci.com/gh/comp3300-comp9900-term-1-2019/capstone-project-czhx/edit#env-vars (you may need to login with your github to get access to this project).
 ```
 $ cf login cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
@@ -41,7 +43,9 @@ Requirements:
 * cf-cli
 
 For backend we don't have to build the application, just go through a similar deploy process.
+
 First login to CloudFoundry.
+
 Note the login credentials are configured as environment variables on CircleCI, you can find them through this link: https://circleci.com/gh/comp3300-comp9900-term-1-2019/capstone-project-czhx/edit#env-vars (you may need to login with your github to get access to this project).
 ```
 $ cd backend
