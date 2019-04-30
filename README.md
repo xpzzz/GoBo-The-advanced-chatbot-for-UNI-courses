@@ -6,7 +6,7 @@
 # Intro
 GoBo is a web-based student life assistant, which creates a more enjoyable living and studying environment for CSE students, by supporting them with a knowledge base including course details, enrollment suggestions, and other useful information.
 
-# Deploy Instruction
+# Deployment Instruction
 
 ## CircleCI
 We have configured workflow on CircleCI. To deploy our applications, just make a simple commit to this branch, or click the CI status badge above to access the Circle dashboard.
@@ -26,7 +26,7 @@ $ yarn && yarn test && yarn build
 ```
 2. Deploy
 First login to CloudFoundry.
-Note the login credentials are configured as environment variables on CircleCI, you can find them through this link: https://circleci.com/gh/comp3300-comp9900-term-1-2019/capstone-project-czhx/edit#env-vars.
+Note the login credentials are configured as environment variables on CircleCI, you can find them through this link: https://circleci.com/gh/comp3300-comp9900-term-1-2019/capstone-project-czhx/edit#env-vars (you may need to login with your github to get access to this project).
 ```
 $ cf login cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
 ```
@@ -42,7 +42,7 @@ Requirements:
 
 For backend we don't have to build the application, just go through a similar deploy process.
 First login to CloudFoundry.
-Note the login credentials are configured as environment variables on CircleCI, you can find them through this link: https://circleci.com/gh/comp3300-comp9900-term-1-2019/capstone-project-czhx/edit#env-vars.
+Note the login credentials are configured as environment variables on CircleCI, you can find them through this link: https://circleci.com/gh/comp3300-comp9900-term-1-2019/capstone-project-czhx/edit#env-vars (you may need to login with your github to get access to this project).
 ```
 $ cd backend
 $ cf login cf login --skip-ssl-validation -a api.run.pivotal.io -u $CF_USER -p $CF_PASSWORD -o unsw-comp9900-19t1-czhx -s development
