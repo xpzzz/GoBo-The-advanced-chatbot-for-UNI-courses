@@ -32,3 +32,16 @@ Adding another course (COMP9311) into dialogflow. The process of trainning DF is
 ## week 6
 
 Structure another knowledge base. Adding multiple FAQ sources for COMP9021. Changing the intent input context and output context. Discuss with teammates about if it is essential to add ML function inside the current project. 
+
+## week 7 
+
+The idea of adding another machine learning module still stays unsolved after 2 meetings. Keeping pushing the frontend UI, scrapping data from lecture notes.
+
+## week 8
+Helping structuring machine learning module with teammates. Scrapping more data from both lecture notes and given data by lecturer. A lot of data cleaning work. Handed the data to teammates and let them finish the machine learning training.
+
+## week 9
+Prepared for the presenatation/demo. Created and refined some user scenarios that can be used on the presentation. Tons of Debugging.
+
+## week 10
+Finish the report.
