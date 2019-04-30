@@ -14,4 +14,22 @@ Week 4
 
 Instead of DialogFlow's Web Demo, we decided to build our frontend. According to our original architectural design, we wanted our frontend to communicate with DialogFlow directly. To achieve that, I built up the /auth API in our backend with Wenxiao and Minjie, and the logic layer in our frontend. Then I did the integration test and adjusted our CI configuration to deploy the backend server. I also set up the Messenger webhook to trigger our bot from Messenger.
 
-CI test
+Week 5
+
+I built a spider bot to scrape data from handbook. Migrated the communication part from frontend to our backend.
+
+Week 6
+
+After a discussion with Aso, we decided to build our own machine learning model. Started doing research on existing models/modules and potential solutions.
+
+Week 7
+
+Scraped more data from stackoverflow and stored them into a mongodb database, for my teammates to train our machine learning model. Setup a context switcher in our frontend.
+
+Week 8
+
+Integrated our machine learning models into our backend. Wrote about technical parts in the report.
+
+Week 9
+
+Final integration test, product delivery and preparation slides for the demo session. Wrote deployment instruction in the report and README.md
