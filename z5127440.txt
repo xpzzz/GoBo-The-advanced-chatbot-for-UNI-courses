@@ -26,3 +26,16 @@ Such as: finish the Form part, update the Title part and finish the MessageList 
 Week6
 This week, I refine the UI of the frontend.
 Fixed a lot of bugs and then add some feature to connect with the backend.
+
+Week7
+This week, I started to make a ML fuction in our project. First of all ,I choose K-MEANS to cluster
+the data we used. But it cannot handle our project. Then I tried a lot ML algorium to fix the project.
+Then I decided to use CNN to classification the data.
+
+Week8
+This week, I finished the CNN ML parts and made it could sovle our project. Then I do a lot of training to 
+make the model more better.
+
+Week9
+This week, I updated the frontend UI and made a website for our project. Then we prepared our presentation 
+and live demo to show.
